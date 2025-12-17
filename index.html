@@ -11,14 +11,12 @@
             margin: 0;
             padding: 0;
             font-family: 'Raleway', sans-serif;
-            
             /* Background: 30% White Overlay */
             background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -31,163 +29,59 @@
             background: rgba(255, 255, 255, 0.90);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            
             width: 100%;
             max-width: 600px;
             padding: 50px;
-            
             border-radius: 35px;
             /* Blue Border matching the CQI/Logo (#004aad) */
             border: 3px solid #004aad; 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-            
             position: relative;
         }
 
         /* --- Header Section --- */
-        .header-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo-link {
-            display: inline-block;
-            text-decoration: none;
-        }
-
+        .header-section { text-align: center; margin-bottom: 40px; }
+        .logo-link { display: inline-block; text-decoration: none; }
         .main-logo {
-            width: 280px; 
-            height: auto;
-            margin-bottom: 20px;
+            width: 280px; height: auto; margin-bottom: 20px;
             transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
-
-        .logo-link:hover .main-logo {
-            transform: scale(1.1);
-        }
-
-        /* CQI Text */
-        h1 {
-            font-family: 'Playfair Display', serif;
-            color: #004aad;
-            font-size: 32px;
-            font-weight: 800;
-            margin: 0 0 5px 0;
-            line-height: 1.2;
-            letter-spacing: 0.5px;
-        }
-
-        /* Subtitle */
-        h2 {
-            font-family: 'Playfair Display', serif;
-            color: #004aad;
-            font-size: 26px;
-            font-weight: 700;
-            margin: 0;
-            opacity: 0.9;
-        }
+        .logo-link:hover .main-logo { transform: scale(1.1); }
+        
+        /* Typography */
+        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin: 0 0 5px 0; line-height: 1.2; letter-spacing: 0.5px; }
+        h2 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 26px; font-weight: 700; margin: 0; opacity: 0.9; }
 
         /* --- Form Fields Styling --- */
-        .form-group {
-            margin-bottom: 22px;
-            text-align: left;
-        }
-
-        /* Labels: Black, Roboto, Sentence Case */
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #000000;
-            font-size: 16px;
-            font-weight: 500;
-            font-family: 'Roboto', sans-serif;
-        }
-
+        .form-group { margin-bottom: 22px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #000000; font-size: 16px; font-weight: 500; font-family: 'Roboto', sans-serif; }
         input, select, textarea {
-            width: 100%;
-            padding: 15px 18px;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            
-            font-family: 'Raleway', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            color: #333;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
+            width: 100%; padding: 15px 18px; background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 12px;
+            font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 600; color: #333; box-sizing: border-box; transition: all 0.3s ease;
         }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            background: #ffffff;
-            border-color: #004aad;
-            box-shadow: 0 0 15px rgba(0, 74, 173, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        ::placeholder {
-            color: #999;
-            font-weight: 500;
-        }
+        input:focus, select:focus, textarea:focus { outline: none; background: #ffffff; border-color: #004aad; box-shadow: 0 0 15px rgba(0, 74, 173, 0.1); }
+        textarea { resize: vertical; min-height: 100px; }
+        ::placeholder { color: #999; font-weight: 500; }
 
         /* --- Submit Button --- */
         .submit-btn {
-            background: linear-gradient(135deg, #004aad, #0070e0);
-            color: white;
-            font-family: 'Raleway', sans-serif;
-            font-size: 18px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 20px;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0, 74, 173, 0.3);
+            background: linear-gradient(135deg, #004aad, #0070e0); color: white; font-family: 'Raleway', sans-serif;
+            font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; padding: 20px;
+            border: none; border-radius: 15px; cursor: pointer; width: 100%; margin-top: 30px;
+            transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(0, 74, 173, 0.3);
         }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 74, 173, 0.4); background: linear-gradient(135deg, #003380, #005bb5); }
+        
+        #loading-message { display: none; text-align: center; margin-top: 15px; font-weight: bold; color: #004aad; }
 
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 74, 173, 0.4);
-            background: linear-gradient(135deg, #003380, #005bb5);
-        }
-
-        /* --- MOBILE RESPONSIVENESS --- */
+        /* Mobile */
         @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            .glass-container {
-                padding: 25px;
-                border-width: 2px;
-            }
-            .main-logo {
-                width: 220px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            h2 {
-                font-size: 20px;
-            }
-            label {
-                font-size: 14px;
-            }
-            input, select, textarea {
-                padding: 12px;
-            }
+            body { padding: 10px; }
+            .glass-container { padding: 25px; border-width: 2px; }
+            .main-logo { width: 220px; }
+            h1 { font-size: 24px; } h2 { font-size: 20px; }
         }
-
     </style>
 </head>
 <body>
@@ -198,29 +92,28 @@
             <a href="index.html" class="logo-link">
                 <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
             </a>
-            
             <h1>CQI: Continuous Quality Improvement</h1>
             <h2>Incident Report Form</h2>
         </div>
 
-        <form>
+        <form id="incidentForm">
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" name="email" placeholder="Enter email address...">
+                <input type="email" id="email" required>
             </div>
 
             <div class="form-group">
                 <label>Date</label>
-                <input type="date" name="date">
+                <input type="date" id="date" required>
             </div>
             <div class="form-group">
                 <label>Time</label>
-                <input type="time" name="time">
+                <input type="time" id="time" required>
             </div>
 
             <div class="form-group">
                 <label>Department</label>
-                <select name="department">
+                <select id="department" required>
                     <option value="" disabled selected>Select Department</option>
                     <option value="Nursing">Nursing</option>
                     <option value="Admin">Admin</option>
@@ -229,22 +122,22 @@
 
             <div class="form-group">
                 <label>Room</label>
-                <input type="text" name="room" placeholder="Room Number">
+                <input type="text" id="room" placeholder="Room Number">
             </div>
 
             <div class="form-group">
                 <label>Name of Personnel</label>
-                <input type="text" name="personnel_name" placeholder="Full Name">
+                <input type="text" id="personnel" placeholder="Full Name" required>
             </div>
             
             <div class="form-group">
                 <label>Age</label>
-                <input type="number" name="age" placeholder="Age">
+                <input type="number" id="age" placeholder="Age">
             </div>
             
             <div class="form-group">
                 <label>Sex</label>
-                <select name="sex">
+                <select id="sex" required>
                     <option value="" disabled selected>Select Sex</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -254,44 +147,44 @@
 
             <div class="form-group">
                 <label>Attending Physician/s</label>
-                <input type="text" name="physician" placeholder="Dr. Name">
+                <input type="text" id="physician" placeholder="Dr. Name">
             </div>
 
             <div class="form-group">
                 <label>Type of Incident</label>
-                <select name="incident_type">
+                <select id="incidentType" required>
                     <option value="" disabled selected>Select Incident Type</option>
                     <option value="Patient Care/Safety Event">Patient Care/Safety Event</option>
                     <option value="Process/Service Complaint">Process/Service Complaint</option>
                     <option value="Documentation Error">Documentation Error</option>
-                    <option value="Infastructure/Equipment Failure">Infastructure/Equipment Failure</option>
+                    <option value="Infrastructure/Equipment Failure">Infrastructure/Equipment Failure</option>
                     <option value="Staffing/HR issues">Staffing/HR issues</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Description of Incident</label>
-                <textarea name="description" placeholder="Please describe what happened in detail..."></textarea>
+                <textarea id="description" placeholder="Please describe what happened in detail..." required></textarea>
             </div>
 
             <div class="form-group">
                 <label>Severity/Impact Level</label>
-                <select name="severity">
+                <select id="severity" required>
                     <option value="" disabled selected>Select Severity</option>
-                    <option value="Level 1">Level 1 (Minor): Low or no Patient/Process impact</option>
-                    <option value="Level 2">Level 2 (Moderate): Reversible impact; requires immediate local correction</option>
-                    <option value="Level 3">Level 3 (Major): Significant patient harm or systemic process failure; requires root cause analysis</option>
+                    <option value="Level 1 (Minor)">Level 1 (Minor): Low or no Patient/Process impact</option>
+                    <option value="Level 2 (Moderate)">Level 2 (Moderate): Reversible impact; requires immediate local correction</option>
+                    <option value="Level 3 (Major)">Level 3 (Major): Significant patient harm or systemic process failure; requires root cause analysis</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Immediate Actions Taken and Measurements</label>
-                <textarea name="immediate_actions" placeholder="What actions were taken immediately?"></textarea>
+                <textarea id="immediateActions" placeholder="What actions were taken immediately?" required></textarea>
             </div>
 
             <div class="form-group">
                 <label>Time Elapsed (Hours) between Incident and Immediate Action</label>
-                <select name="time_elapsed">
+                <select id="timeElapsed" required>
                     <option value="" disabled selected>Select Time Elapsed</option>
                     <option value="1-2 Hours">1-2 Hours</option>
                     <option value="4-8 Hours">4-8 Hours</option>
@@ -303,17 +196,105 @@
 
             <div class="form-group">
                 <label>Upload Image</label>
-                <input type="file" name="image_upload" style="background: white; padding: 12px;">
+                <input type="file" id="imageUpload" style="background: white; padding: 12px;">
             </div>
 
             <div class="form-group">
                 <label>Reported By</label>
-                <input type="text" name="reported_by" placeholder="Your Name">
+                <input type="text" id="reportedBy" placeholder="Your Name" required>
             </div>
 
-            <button type="submit" class="submit-btn">Submit Report</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Submit Report</button>
+            <div id="loading-message">Submitting Report... Please wait.</div>
         </form>
     </div>
+
+    <script>
+        // THIS IS THE URL YOU PROVIDED:
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzVAsDutofURsZyku-Fx8nCGYIJIW47wA_8-_4uwImu4Bxj0bFR5fGHkVjioiAS2Liq/exec';
+
+        const form = document.getElementById('incidentForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingMsg = document.getElementById('loading-message');
+        const fileInput = document.getElementById('imageUpload');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // Disable button and show loading text
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = "0.5";
+            loadingMsg.style.display = "block";
+
+            // 1. Collect Data
+            const dataPayload = {
+                email: document.getElementById('email').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                department: document.getElementById('department').value,
+                room: document.getElementById('room').value,
+                personnel_name: document.getElementById('personnel').value,
+                age: document.getElementById('age').value,
+                sex: document.getElementById('sex').value,
+                physician: document.getElementById('physician').value,
+                incident_type: document.getElementById('incidentType').value,
+                description: document.getElementById('description').value,
+                severity: document.getElementById('severity').value,
+                immediate_actions: document.getElementById('immediateActions').value,
+                time_elapsed: document.getElementById('timeElapsed').value,
+                reported_by: document.getElementById('reportedBy').value,
+                fileData: "",
+                fileName: "",
+                fileType: ""
+            };
+
+            // 2. Handle File Upload & Send
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const rawData = e.target.result;
+                    const base64Data = rawData.split(',')[1]; // Get the Base64 part
+
+                    dataPayload.fileData = base64Data;
+                    dataPayload.fileName = file.name;
+                    dataPayload.fileType = file.type;
+
+                    sendData(dataPayload);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                sendData(dataPayload);
+            }
+        });
+
+        function sendData(payload) {
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.result === "success") {
+                    alert('Report Submitted Successfully!');
+                    form.reset();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+                loadingMsg.style.display = "none";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Submission failed. Please check your internet connection.');
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+                loadingMsg.style.display = "none";
+            });
+        }
+    </script>
 
 </body>
 </html>
