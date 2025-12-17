@@ -8,89 +8,125 @@
         /* TDMH Visual Style */
         :root {
             --primary: #800000; /* Maroon */
-            --secondary: #2c3e50; /* Dark Blue */
+            --secondary: #1a252f; /* Very Dark Blue/Black for better contrast */
+            --highlight: #0056b3; /* A brighter blue for the button */
             --light: #f4f6f7;
         }
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            /* Looks inside the 'images' folder */
-            background-image: url('images/tdmh-background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
             margin: 0;
             padding: 20px 50px; /* Added side padding */
             min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Stack CQI text and container */
+            flex-direction: column;
             justify-content: center;
             align-items: flex-start; /* Move everything to the left */
+            position: relative; /* Needed for the overlay */
+            color: var(--secondary);
         }
 
-        /* New style for the prominent CQI text outside the box */
+        /* 🌟 NEW: Background Image with a Dark Overlay for readability */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Looks inside the 'images' folder */
+            background-image: url('images/tdmh-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* This creates the dark overlay. Adjust 0.5 to make it darker/lighter */
+            background-color: rgba(0, 0, 0, 0.5); 
+            background-blend-mode: darken;
+            z-index: -1; /* Places it behind everything */
+        }
+
+        /* 🌟 NEW: Professional Text Box for the CQI Title */
+        .cqi-box {
+            background: rgba(255, 255, 255, 0.95); /* Solid white box */
+            padding: 15px 30px;
+            border-radius: 8px;
+            border-left: 6px solid var(--primary); /* Maroon accent line */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            display: inline-block; /* Makes the box wrap the text tightly */
+        }
         .cqi-title {
             color: var(--primary);
-            font-size: 36px; /* Much bigger */
+            font-size: 28px;
             font-weight: 800; /* Extra bold */
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); /* White glow for readability */
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
+        /* 🌟 UPDATED: More transparent and smaller form container */
         .container {
-            /* Increased transparency (0.85) */
-            background: rgba(255, 255, 255, 0.85);
-            max-width: 600px; /* Slightly smaller width */
+            /* Increased transparency (0.80) */
+            background: rgba(255, 255, 255, 0.80);
+            max-width: 500px; /* Smaller width to show more background */
             width: 100%;
-            padding: 40px;
+            padding: 35px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(8px); /* Increased blur */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            backdrop-filter: blur(10px); /* Stronger blur */
         }
         
-        .header { text-align: center; margin-bottom: 30px; }
-        .header img { max-height: 100px; margin-bottom: 15px; }
-        .header h1 { color: var(--secondary); margin: 0; font-size: 24px; font-weight: 700; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header img { max-height: 90px; margin-bottom: 15px; }
+        .header h1 { color: var(--secondary); margin: 0; font-size: 22px; font-weight: 700; }
         
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--secondary); font-size: 14px; }
+        .form-group { margin-bottom: 18px; }
+        /* Darker labels for better readability */
+        label { display: block; margin-bottom: 8px; font-weight: 700; color: #000; font-size: 14px; }
         
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 1px solid #bbb; /* Slightly darker border */
+            border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
-            transition: border-color 0.3s;
-            background: rgba(255, 255, 255, 0.9); /* Slightly transparent inputs */
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.95); /* Nearly solid inputs */
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--secondary); outline: none; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1); /* Subtle blue glow */
+            outline: none;
+        }
         textarea { height: 100px; resize: vertical; }
         
+        /* 🌟 UPDATED: Brighter, more visible submit button */
         button {
-            background-color: var(--primary);
+            background-color: var(--highlight); /* Bright blue */
             color: white;
             border: none;
             padding: 15px 30px;
             font-size: 18px;
-            font-weight: 600;
-            border-radius: 8px;
+            font-weight: 700;
+            border-radius: 6px;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
-            transition: background 0.3s;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        button:hover { background-color: #600000; }
+        button:hover {
+            background-color: #004494; /* Darker blue on hover */
+            transform: translateY(-1px); /* Slight lift effect */
+        }
         
         #statusMessage { text-align: center; margin-top: 20px; font-weight: bold; }
-        .success { color: green; }
-        .error { color: red; }
+        .success { color: green; background: #e6f4ea; padding: 10px; border-radius: 4px; }
+        .error { color: red; background: #fdecea; padding: 10px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="cqi-title">CQI (Continuous Quality Improvement)</div>
+<div class="cqi-box">
+    <h2 class="cqi-title">CQI: Continuous Quality Improvement</h2>
+</div>
 
 <div class="container">
     <div class="header">
