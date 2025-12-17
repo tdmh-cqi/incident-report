@@ -3,150 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incident Report Form</title>
+    <title>CQI Incident Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* --- General Page Styling --- */
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             
-            /* UPDATED: Using 'tdmh-background.jpg' */
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/tdmh-background.jpg');
+            /* BACKGROUND: Using the exact filename you verified */
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
             
+            /* Center the form in the middle of the screen */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Allows scrolling for long form */
             min-height: 100vh;
-            color: white;
+            padding: 40px 20px;
         }
 
-        /* --- The Glass Card (iOS Style) --- */
+        /* --- Glass Container (iPhone Style) --- */
         .glass-container {
-            background: rgba(40, 40, 40, 0.65);
+            /* The Glass Effect */
+            background: rgba(255, 255, 255, 0.85); /* Light glass to match your white inputs */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             
             width: 100%;
-            max-width: 450px;
+            max-width: 550px; /* Width of the form card */
             padding: 40px;
             
-            border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-radius: 30px; /* Deep rounded corners */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
             
-            margin: 20px;
-            text-align: center;
+            position: relative;
         }
 
         /* --- Header Section --- */
         .header-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 25px;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        /* UPDATED: Main Logo Styling */
         .main-logo {
-            width: 140px;
+            width: 150px;
             height: auto;
             margin-bottom: 15px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        h1 {
+            color: #004aad; /* The specific Blue from your screenshots */
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
         }
 
         h2 {
+            color: #004aad;
+            font-size: 18px;
             font-weight: 600;
-            margin: 0 0 25px 0;
-            font-size: 22px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.95);
+            margin: 0;
+            opacity: 0.8;
         }
 
-        /* --- Form Inputs (Inner Glass) --- */
+        /* --- Form Fields Styling --- */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: left;
         }
 
+        /* The Blue ALL CAPS Labels from your photos */
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 13px;
-            padding-left: 10px;
+            margin-bottom: 5px;
+            color: #004aad; /* Blue text */
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 16px;
-            background: rgba(120, 120, 120, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 18px;
+            padding: 12px 15px;
+            
+            /* Light gray background input style seen in photos */
+            background: #f0f0f0; 
+            border: 1px solid transparent;
+            border-radius: 10px;
+            
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #333;
             box-sizing: border-box;
-            font-size: 15px;
             transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        ::placeholder {
-            color: rgba(255, 255, 255, 0.4);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
-        }
-        
-        option {
-            background-color: #333; 
-            color: white;
+            background: #ffffff;
+            border-color: #004aad;
+            box-shadow: 0 0 8px rgba(0, 74, 173, 0.2);
         }
 
         textarea {
             resize: vertical;
-            height: 120px;
+            min-height: 80px;
         }
 
-        /* --- iOS Style Button --- */
-        button {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #000;
-            padding: 18px;
-            border: none;
-            border-radius: 18px;
+        /* Placeholder color */
+        ::placeholder {
+            color: #999;
+        }
+
+        /* --- Submit Button --- */
+        .submit-btn {
+            background-color: #004aad; /* Blue button */
+            color: white;
             font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
             width: 100%;
-            font-weight: 700;
-            margin-top: 10px;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 20px;
+            transition: background 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 74, 173, 0.3);
         }
 
-        button:hover {
-            background-color: #ffffff;
-            transform: scale(1.02);
-        }
-        
-        button:active {
-            transform: scale(0.98);
+        .submit-btn:hover {
+            background-color: #003380;
         }
 
     </style>
@@ -158,31 +153,119 @@
         <div class="header-section">
             <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
             
-            <h2>Incident Report</h2>
+            <h1>CQI: Continuous Quality Improvement</h1>
+            <h2>Incident Report Form</h2>
         </div>
 
         <form>
             <div class="form-group">
-                <label for="reporter-name">Name of Reporter</label>
-                <input type="text" id="reporter-name" name="reporter-name" placeholder="Enter full name" required>
+                <label>Email Address</label>
+                <input type="email" placeholder="Your Email">
             </div>
 
             <div class="form-group">
-                <label for="date">Date of Incident</label>
-                <input type="date" id="date" name="date" required>
+                <label>Date</label>
+                <input type="date">
+            </div>
+            <div class="form-group">
+                <label>Time</label>
+                <input type="time">
             </div>
 
             <div class="form-group">
-                <label for="location">Location / Department</label>
-                <input type="text" id="location" name="location" placeholder="e.g. ER, Nursing Station" required>
+                <label>Department</label>
+                <select>
+                    <option value="" disabled selected>Select your department</option>
+                    <option value="ER">ER</option>
+                    <option value="Nursing">Nursing</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Pharmacy">Pharmacy</option>
+                    <option value="Laboratory">Laboratory</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="description">Incident Description</label>
-                <textarea id="description" name="description" placeholder="Describe what happened..." required></textarea>
+                <label>Room</label>
+                <input type="text" placeholder="Room #">
             </div>
 
-            <button type="submit">Submit Report</button>
+            <div class="form-group">
+                <label>Name of Personnel</label>
+                <input type="text" placeholder="Personnel Name">
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" placeholder="Age">
+            </div>
+            <div class="form-group">
+                <label>Sex</label>
+                <select>
+                    <option value="" disabled selected>Select sex</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Attending Physician/s</label>
+                <input type="text" placeholder="Physician Name">
+            </div>
+
+            <div class="form-group">
+                <label>Type of Incident</label>
+                <select>
+                    <option value="" disabled selected>Select type</option>
+                    <option value="Medication Error">Medication Error</option>
+                    <option value="Fall">Fall</option>
+                    <option value="Equipment Failure">Equipment Failure</option>
+                    <option value="Complaint">Complaint</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea placeholder="Describe what happened..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Severity Level</label>
+                <select>
+                    <option value="" disabled selected>Select severity</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Sentinel Event">Sentinel Event</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Immediate Actions</label>
+                <textarea placeholder="Actions taken..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Time Elapsed (Between Incident and Immediate Action)</label>
+                <select>
+                    <option value="" disabled selected>Select time</option>
+                    <option value="Immediate">Immediate</option>
+                    <option value="Within 30 mins">Within 30 mins</option>
+                    <option value="1 hour">1 hour</option>
+                    <option value="More than 1 hour">More than 1 hour</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Image</label>
+                <input type="file">
+            </div>
+
+            <div class="form-group">
+                <label>Reported By</label>
+                <input type="text" placeholder="Your Name">
+            </div>
+
+            <button type="submit" class="submit-btn">SUBMIT REPORT</button>
         </form>
     </div>
 
