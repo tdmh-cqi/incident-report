@@ -5,132 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TDMH Incident Reporting</title>
     <style>
-        /* TDMH Visual Style */
+        /* TDMH Brand Colors (Based on Logo) */
         :root {
-            --primary: #800000; /* Maroon */
-            --secondary: #1a252f; /* Very Dark Blue/Black for better contrast */
-            --highlight: #0056b3; /* A brighter blue for the button */
-            --light: #f4f6f7;
+            --primary: #003399; /* Deep Blue from Logo */
+            --accent: #009933;  /* Bright Green from Logo */
+            --dark: #1a252f;
         }
+
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px 50px; /* Added side padding */
+            padding: 20px 50px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Move everything to the left */
-            position: relative; /* Needed for the overlay */
-            color: var(--secondary);
-        }
-
-        /* 🌟 NEW: Background Image with a Dark Overlay for readability */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* Looks inside the 'images' folder */
+            align-items: flex-start; /* Aligns form to the left */
+            
+            /* Background Settings */
             background-image: url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* This creates the dark overlay. Adjust 0.5 to make it darker/lighter */
-            background-color: rgba(0, 0, 0, 0.5); 
-            background-blend-mode: darken;
-            z-index: -1; /* Places it behind everything */
+            background-attachment: fixed;
         }
 
-        /* 🌟 NEW: Professional Text Box for the CQI Title */
-        .cqi-box {
-            background: rgba(255, 255, 255, 0.95); /* Solid white box */
-            padding: 15px 30px;
-            border-radius: 8px;
-            border-left: 6px solid var(--primary); /* Maroon accent line */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            margin-bottom: 25px;
-            display: inline-block; /* Makes the box wrap the text tightly */
+        /* 🌟 THE GLASS STYLE (Shared by CQI Box and Form) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75); /* High transparency */
+            backdrop-filter: blur(12px); /* This blurs the building BEHIND the box */
+            -webkit-backdrop-filter: blur(12px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 51, 153, 0.2); /* Soft Blue Glow */
+            border-radius: 16px;
         }
+
+        /* 🌟 CQI Title Box */
+        .cqi-box {
+            padding: 15px 35px;
+            margin-bottom: 25px;
+            display: inline-block;
+            border-left: 6px solid var(--primary); /* Blue accent line */
+            transition: transform 0.3s;
+        }
+        .cqi-box:hover {
+            transform: translateY(-2px); /* Subtle float on hover */
+            box-shadow: 0 10px 40px rgba(0, 51, 153, 0.3); /* Stronger glow */
+        }
+
         .cqi-title {
-            color: var(--primary);
-            font-size: 28px;
-            font-weight: 800; /* Extra bold */
+            color: var(--primary); /* Professional Blue */
+            font-size: 26px;
+            font-weight: 800;
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0px 0px 1px rgba(255,255,255,0.8);
         }
 
-        /* 🌟 UPDATED: More transparent and smaller form container */
+        /* 🌟 Form Container */
         .container {
-            /* Increased transparency (0.80) */
-            background: rgba(255, 255, 255, 0.80);
-            max-width: 500px; /* Smaller width to show more background */
+            max-width: 450px; /* Smaller width as requested */
             width: 100%;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            backdrop-filter: blur(10px); /* Stronger blur */
+            padding: 30px;
         }
         
-        .header { text-align: center; margin-bottom: 25px; }
-        .header img { max-height: 90px; margin-bottom: 15px; }
-        .header h1 { color: var(--secondary); margin: 0; font-size: 22px; font-weight: 700; }
+        /* 🌟 Logo Animation */
+        .header { text-align: center; margin-bottom: 20px; }
+        .logo-link { display: inline-block; cursor: pointer; }
+        .header img { 
+            max-height: 90px; 
+            margin-bottom: 10px; 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy Zoom Effect */
+        }
+        .header img:hover {
+            transform: scale(1.15); /* Zooms in */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+        .header h1 { color: var(--primary); margin: 0; font-size: 22px; font-weight: 700; }
         
-        .form-group { margin-bottom: 18px; }
-        /* Darker labels for better readability */
-        label { display: block; margin-bottom: 8px; font-weight: 700; color: #000; font-size: 14px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; font-weight: 700; color: #222; font-size: 13px; }
         
+        /* Inputs */
         input, select, textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #bbb; /* Slightly darker border */
-            border-radius: 6px;
+            padding: 10px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
             box-sizing: border-box;
             font-size: 14px;
             transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.95); /* Nearly solid inputs */
+            background: rgba(255, 255, 255, 0.8); /* See-through inputs */
         }
         input:focus, select:focus, textarea:focus {
-            border-color: var(--highlight);
-            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1); /* Subtle blue glow */
+            background: #fff;
+            border-color: var(--accent); /* Green border on focus */
+            box-shadow: 0 0 0 4px rgba(0, 153, 51, 0.1); /* Green Glow */
             outline: none;
         }
-        textarea { height: 100px; resize: vertical; }
+        textarea { height: 80px; resize: vertical; }
         
-        /* 🌟 UPDATED: Brighter, more visible submit button */
+        /* 🌟 Submit Button */
         button {
-            background-color: var(--highlight); /* Bright blue */
+            background: linear-gradient(135deg, var(--primary), #0044cc); /* Blue Gradient */
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 30px;
+            font-size: 16px;
             font-weight: 700;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
-            transition: background 0.3s, transform 0.1s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 51, 153, 0.3);
         }
         button:hover {
-            background-color: #004494; /* Darker blue on hover */
-            transform: translateY(-1px); /* Slight lift effect */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 153, 0.4);
+            background: linear-gradient(135deg, #0044cc, var(--primary));
         }
         
-        #statusMessage { text-align: center; margin-top: 20px; font-weight: bold; }
-        .success { color: green; background: #e6f4ea; padding: 10px; border-radius: 4px; }
-        .error { color: red; background: #fdecea; padding: 10px; border-radius: 4px; }
+        #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; font-size: 14px; }
+        .success { color: var(--accent); background: rgba(255,255,255,0.9); padding: 8px; border-radius: 6px; }
+        .error { color: red; background: rgba(255,255,255,0.9); padding: 8px; border-radius: 6px; }
     </style>
 </head>
 <body>
 
-<div class="cqi-box">
+<div class="cqi-box glass-panel">
     <h2 class="cqi-title">CQI: Continuous Quality Improvement</h2>
 </div>
 
-<div class="container">
+<div class="container glass-panel">
     <div class="header">
-        <img src="images/tdmh-logo.png" alt="TDMH Logo" onerror="this.style.display='none'">
+        <a href="index.html" class="logo-link" title="Reload Page">
+            <img src="images/tdmh-logo.png" alt="TDMH Logo" onerror="this.style.display='none'">
+        </a>
         <h1>Incident Report Form</h1>
     </div>
 
@@ -150,11 +162,11 @@
             </select>
         </div>
 
-        <div class="form-group"><label>Room</label><input type="text" name="room" required placeholder="Room number or location"></div>
+        <div class="form-group"><label>Room</label><input type="text" name="room" required placeholder="Room #"></div>
 
-        <div class="form-group"><label>Name of Personnel</label><input type="text" name="personnel" required placeholder="Full name of involved personnel"></div>
+        <div class="form-group"><label>Name of Personnel</label><input type="text" name="personnel" required placeholder="Personnel Name"></div>
 
-        <div class="form-group"><label>Age</label><input type="number" name="age" placeholder="Age of patient/personnel"></div>
+        <div class="form-group"><label>Age</label><input type="number" name="age" placeholder="Age"></div>
 
         <div class="form-group">
             <label>Sex</label>
@@ -166,12 +178,12 @@
             </select>
         </div>
 
-        <div class="form-group"><label>Attending Physician/s</label><input type="text" name="physician" placeholder="Name(s) of physician(s)"></div>
+        <div class="form-group"><label>Attending Physician/s</label><input type="text" name="physician" placeholder="Physician Name"></div>
 
         <div class="form-group">
             <label>Type of Incident</label>
             <select name="incidentType" required>
-                <option value="" disabled selected>Select incident type</option>
+                <option value="" disabled selected>Select type</option>
                 <option value="Patient Care/Safety Event">Patient Care/Safety Event</option>
                 <option value="Process/Service Complaint">Process/Service Complaint</option>
                 <option value="Documentation Error">Documentation Error</option>
@@ -180,24 +192,24 @@
             </select>
         </div>
 
-        <div class="form-group"><label>Description of Incident</label><textarea name="description" required placeholder="Please provide a detailed description..."></textarea></div>
+        <div class="form-group"><label>Description</label><textarea name="description" required placeholder="Describe what happened..."></textarea></div>
 
         <div class="form-group">
-            <label>Severity/Impact Level</label>
+            <label>Severity Level</label>
             <select name="severity" required>
-                <option value="" disabled selected>Select severity level</option>
-                <option value="Level 1 (Minor)">Level 1 (Minor): Low or no Patient/Process impact.</option>
-                <option value="Level 2 (Moderate)">Level 2 (Moderate): Reversible impact; requires immediate local correction.</option>
-                <option value="Level 3 (Major)">Level 3 (Major): Significant patient harm or systemic process failure; requires root cause analysis.</option>
+                <option value="" disabled selected>Select severity</option>
+                <option value="Level 1 (Minor)">Level 1 (Minor)</option>
+                <option value="Level 2 (Moderate)">Level 2 (Moderate)</option>
+                <option value="Level 3 (Major)">Level 3 (Major)</option>
             </select>
         </div>
 
-        <div class="form-group"><label>Immediate Actions Taken and Measurements</label><textarea name="immediateActions" required placeholder="What actions were taken immediately?"></textarea></div>
+        <div class="form-group"><label>Immediate Actions</label><textarea name="immediateActions" required placeholder="Actions taken..."></textarea></div>
 
         <div class="form-group">
-            <label>Time Elapsed (Hours) between Incident and Immediate Action</label>
+            <label>Time Elapsed</label>
             <select name="timeElapsed">
-                <option value="" disabled selected>Select time elapsed</option>
+                <option value="" disabled selected>Select time</option>
                 <option value="1-2 Hours">1-2 Hours</option>
                 <option value="4-8 Hours">4-8 Hours</option>
                 <option value="24 Hours">24 Hours</option>
@@ -207,11 +219,11 @@
         </div>
 
         <div class="form-group">
-            <label>Upload Image (Optional)</label>
+            <label>Upload Image</label>
             <input type="file" id="fileInput" accept="image/*">
         </div>
 
-        <div class="form-group"><label>Reported By</label><input type="text" name="reportedBy" required placeholder="Your full name"></div>
+        <div class="form-group"><label>Reported By</label><input type="text" name="reportedBy" required placeholder="Your Name"></div>
 
         <button type="submit" id="submitBtn">Submit Report</button>
         <p id="statusMessage"></p>
@@ -219,7 +231,7 @@
 </div>
 
 <script>
-    // ⬇️ YOUR BACKEND URL (Keep this as is)
+    // ⬇️ YOUR BACKEND URL
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVAsDutofURsZyku-Fx8nCGYIJIW47wA_8-_4uwImu4Bxj0bFR5fGHkVjioiAS2Liq/exec";
 
     const form = document.getElementById('irForm');
