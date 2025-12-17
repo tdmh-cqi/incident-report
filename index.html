@@ -3,171 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Helpdesk Support Form</title>
+    <title>Incident Report Form</title>
     <style>
         /* --- General Page Styling --- */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Using the Taytay Doctors Building Background */
-            background-image: url('images/tdmh-background.jpg');
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            
+            /* UPDATED: Using 'tdmh-background.jpg' */
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            /* Flexbox to center the form perfectly */
+            
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            color: white;
         }
 
-        /* --- The Main Form Card --- */
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.95); /* Slight transparency for style */
+        /* --- The Glass Card (iOS Style) --- */
+        .glass-container {
+            background: rgba(40, 40, 40, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            
             width: 100%;
-            max-width: 500px; /* Controls how wide the form gets */
+            max-width: 450px;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            
             margin: 20px;
-            text-align: center; /* Centers everything inside (logos/text) */
-            position: relative;
+            text-align: center;
         }
 
-        /* --- Header Section (CQI + Main Logo) --- */
-        .cqi-header {
-            margin-bottom: 15px;
+        /* --- Header Section --- */
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
         }
 
-        .cqi-logo {
-            height: 50px; /* Adjust size of CQI logo here */
-            width: auto;
-            display: block;
-            margin: 0 auto; /* Center the image */
-        }
-
+        /* UPDATED: Main Logo Styling */
         .main-logo {
-            width: 120px; /* Adjust size of Main logo here */
+            width: 140px;
             height: auto;
-            margin-bottom: 20px;
-            display: block;
-            margin: 0 auto 20px auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         h2 {
-            color: #333;
-            margin-bottom: 25px;
-            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 25px 0;
+            font-size: 22px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.95);
         }
 
-        /* --- Form Inputs Styling --- */
+        /* --- Form Inputs (Inner Glass) --- */
         .form-group {
             margin-bottom: 20px;
-            text-align: left; /* Aligns labels to left for readability */
+            text-align: left;
         }
 
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            padding-left: 10px;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box; /* Ensures padding doesn't break width */
-            font-size: 14px;
-            transition: border-color 0.3s ease;
+            padding: 16px;
+            background: rgba(120, 120, 120, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 18px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.4);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #800000; /* Maroon accent color */
-            background-color: #fffafa;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+        }
+        
+        option {
+            background-color: #333; 
+            color: white;
         }
 
         textarea {
             resize: vertical;
-            height: 100px;
+            height: 120px;
         }
 
-        /* --- Submit Button --- */
+        /* --- iOS Style Button --- */
         button {
-            background-color: #800000; /* Maroon color */
-            color: white;
-            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            padding: 18px;
             border: none;
-            border-radius: 8px;
+            border-radius: 18px;
             font-size: 16px;
             cursor: pointer;
             width: 100%;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         button:hover {
-            background-color: #600000; /* Darker maroon on hover */
+            background-color: #ffffff;
+            transform: scale(1.02);
+        }
+        
+        button:active {
+            transform: scale(0.98);
         }
 
     </style>
 </head>
 <body>
 
-    <div class="form-container">
+    <div class="glass-container">
         
-        <div class="cqi-header">
-            <img src="images/cqi-logo.png" alt="CQI Logo" class="cqi-logo">
+        <div class="header-section">
+            <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
+            
+            <h2>Incident Report</h2>
         </div>
-
-        <div class="logo-section">
-            <img src="images/logo.png" alt="Company Logo" class="main-logo">
-        </div>
-
-        <h2>IT Helpdesk Support</h2>
 
         <form>
             <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <label for="reporter-name">Name of Reporter</label>
+                <input type="text" id="reporter-name" name="reporter-name" placeholder="Enter full name" required>
             </div>
 
             <div class="form-group">
-                <label for="department">Department</label>
-                <select id="department" name="department" required>
-                    <option value="" disabled selected>Select your department</option>
-                    <option value="hr">Human Resources</option>
-                    <option value="finance">Finance</option>
-                    <option value="nursing">Nursing</option>
-                    <option value="admin">Administration</option>
-                    <option value="other">Other</option>
-                </select>
+                <label for="date">Date of Incident</label>
+                <input type="date" id="date" name="date" required>
             </div>
 
             <div class="form-group">
-                <label for="issue">Issue Type</label>
-                <select id="issue" name="issue" required>
-                    <option value="" disabled selected>Select issue type</option>
-                    <option value="hardware">Hardware / PC</option>
-                    <option value="software">Software / System</option>
-                    <option value="network">Network / Internet</option>
-                    <option value="printer">Printer</option>
-                </select>
+                <label for="location">Location / Department</label>
+                <input type="text" id="location" name="location" placeholder="e.g. ER, Nursing Station" required>
             </div>
 
             <div class="form-group">
-                <label for="description">Description of Issue</label>
-                <textarea id="description" name="description" placeholder="Please describe the problem..." required></textarea>
+                <label for="description">Incident Description</label>
+                <textarea id="description" name="description" placeholder="Describe what happened..." required></textarea>
             </div>
 
-            <button type="submit">Submit Request</button>
+            <button type="submit">Submit Report</button>
         </form>
     </div>
 
