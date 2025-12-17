@@ -4,103 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CQI Incident Report</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
     <style>
         /* --- General Page Styling --- */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            /* Using the new, bolder font */
+            font-family: 'Montserrat', sans-serif;
             
-            /* BACKGROUND: Using the exact filename you verified */
+            /* BACKGROUND */
             background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
             
-            /* Center the form in the middle of the screen */
+            /* Alignment */
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Allows scrolling for long form */
+            align-items: flex-start;
             min-height: 100vh;
             padding: 40px 20px;
         }
 
-        /* --- Glass Container (iPhone Style) --- */
+        /* --- Glass Container (Lighter & Outlined) --- */
         .glass-container {
-            /* The Glass Effect */
-            background: rgba(255, 255, 255, 0.85); /* Light glass to match your white inputs */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            /* Lighter Glass Effect (higher opacity white) */
+            background: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             
             width: 100%;
-            max-width: 550px; /* Width of the form card */
-            padding: 40px;
+            max-width: 550px;
+            padding: 45px;
             
-            border-radius: 30px; /* Deep rounded corners */
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border-radius: 35px;
+            /* Lightish Blue-Green Outline */
+            border: 3px solid rgba(72, 209, 204, 0.6); 
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             
             position: relative;
         }
 
-        /* --- Header Section --- */
+        /* --- Header Section & Logo Interaction --- */
         .header-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+        }
+
+        /* Logo Link wrapper for clickability */
+        .logo-link {
+            display: inline-block;
+            text-decoration: none;
         }
 
         .main-logo {
-            width: 150px;
+            /* Made larger as requested */
+            width: 220px;
             height: auto;
             margin-bottom: 15px;
+            /* Smooth transition for the zoom effect */
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
         }
 
+        /* Hover effect for the logo */
+        .logo-link:hover .main-logo {
+            transform: scale(1.1); /* Zoom in by 10% */
+        }
+
+        /* CQI Text - Made Smaller */
         h1 {
-            color: #004aad; /* The specific Blue from your screenshots */
-            font-size: 22px;
-            font-weight: 700;
+            color: #004aad;
+            font-size: 16px; /* Smaller than before */
+            font-weight: 800; /* Extra bold */
             margin: 0 0 5px 0;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
+        /* Main Title - Made larger to balance */
         h2 {
             color: #004aad;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 26px;
+            font-weight: 700;
             margin: 0;
-            opacity: 0.8;
         }
 
-        /* --- Form Fields Styling --- */
+        /* --- Form Fields Styling (Bolder) --- */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             text-align: left;
         }
 
-        /* The Blue ALL CAPS Labels from your photos */
         label {
             display: block;
-            margin-bottom: 5px;
-            color: #004aad; /* Blue text */
-            font-size: 12px;
-            font-weight: 700;
+            margin-bottom: 6px;
+            color: #004aad;
+            font-size: 13px;
+            /* Bolder weight for readability */
+            font-weight: 800; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px 16px;
+            background: #f4f7f6; /* Slightly cleaner light gray */
+            border: 2px solid transparent;
+            border-radius: 12px;
             
-            /* Light gray background input style seen in photos */
-            background: #f0f0f0; 
-            border: 1px solid transparent;
-            border-radius: 10px;
-            
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 14px;
+            /* Bolder input text */
+            font-weight: 600;
             color: #333;
             box-sizing: border-box;
             transition: all 0.3s ease;
@@ -109,39 +128,42 @@
         input:focus, select:focus, textarea:focus {
             outline: none;
             background: #ffffff;
+            /* Blue border on focus */
             border-color: #004aad;
-            box-shadow: 0 0 8px rgba(0, 74, 173, 0.2);
+            box-shadow: 0 0 15px rgba(0, 74, 173, 0.15);
         }
 
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 90px;
         }
 
-        /* Placeholder color */
         ::placeholder {
-            color: #999;
+            color: #a0a0a0;
+            font-weight: 500;
         }
 
         /* --- Submit Button --- */
         .submit-btn {
-            background-color: #004aad; /* Blue button */
+            background: linear-gradient(135deg, #004aad, #0063e5); /* Gradient blue */
             color: white;
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 800;
             text-transform: uppercase;
-            padding: 15px;
+            letter-spacing: 1px;
+            padding: 18px;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
-            transition: background 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 74, 173, 0.3);
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 74, 173, 0.4);
         }
 
         .submit-btn:hover {
-            background-color: #003380;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 74, 173, 0.5);
         }
 
     </style>
@@ -151,7 +173,9 @@
     <div class="glass-container">
         
         <div class="header-section">
-            <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
+            <a href="index.html" class="logo-link">
+                <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
+            </a>
             
             <h1>CQI: Continuous Quality Improvement</h1>
             <h2>Incident Report Form</h2>
@@ -257,7 +281,7 @@
 
             <div class="form-group">
                 <label>Upload Image</label>
-                <input type="file">
+                <input type="file" style="padding: 10px; background: white;">
             </div>
 
             <div class="form-group">
