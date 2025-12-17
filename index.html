@@ -7,18 +7,18 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* TDMH Brand Colors */
         :root {
             --primary: #003399; /* Deep Blue */
             --accent: #009933;  /* Bright Green */
-            --dark: #1a252f;
+            --dark: #0a1525;
         }
 
         body {
-            font-family: 'Poppins', sans-serif; /* Clean, modern font for body */
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 20px 50px;
             min-height: 100vh;
@@ -37,9 +37,7 @@
 
         /* 🌟 ULTRA-GLASS STYLE */
         .glass-panel {
-            /* Much more transparent (0.6) */
-            background: rgba(255, 255, 255, 0.6); 
-            /* Stronger blur to keep text readable */
+            background: rgba(255, 255, 255, 0.65); /* Slight tweak for better text contrast */
             backdrop-filter: blur(16px); 
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -52,18 +50,18 @@
             padding: 15px 40px;
             margin-bottom: 25px;
             display: inline-block;
-            border-left: 5px solid var(--primary);
+            border-left: 6px solid var(--primary);
             transition: transform 0.3s;
         }
         .cqi-box:hover {
-            transform: translateX(5px); /* Subtle slide */
-            background: rgba(255, 255, 255, 0.75); /* Lightens on hover */
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.85);
         }
 
         .cqi-title {
-            font-family: 'Playfair Display', serif; /* Fancy Font */
+            font-family: 'Playfair Display', serif;
             color: var(--primary);
-            font-size: 32px; /* Slightly larger */
+            font-size: 32px;
             font-weight: 900;
             margin: 0;
             letter-spacing: 0.5px;
@@ -72,7 +70,7 @@
 
         /* 🌟 Form Container */
         .container {
-            max-width: 450px; /* Small and compact */
+            max-width: 450px;
             width: 100%;
             padding: 35px;
         }
@@ -91,7 +89,7 @@
         }
         
         .header h1 { 
-            font-family: 'Playfair Display', serif; /* Fancy Font */
+            font-family: 'Playfair Display', serif;
             color: var(--primary); 
             margin: 0; 
             font-size: 26px; 
@@ -99,14 +97,25 @@
         }
         
         .form-group { margin-bottom: 18px; }
+        
+        /* 🌟 BOLDER LABELS for Professional Look */
         label { 
             display: block; 
             margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #002266; /* Dark blue text for contrast */
+            font-weight: 800; /* Extra Bold */
+            color: var(--primary); /* Using Brand Blue instead of Black */
             font-size: 13px; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        
+        /* Small note text inside labels */
+        label span {
+            font-weight: 500;
+            font-size: 11px;
+            color: #444;
+            text-transform: none;
+            margin-left: 5px;
         }
         
         /* Inputs */
@@ -118,8 +127,9 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
+            font-weight: 500; /* Make input text slightly bolder */
+            color: #1a252f; /* Darker text for readability */
             transition: all 0.3s;
-            /* Very transparent inputs */
             background: rgba(255, 255, 255, 0.5); 
         }
         input:focus, select:focus, textarea:focus {
@@ -138,7 +148,7 @@
             border: none;
             padding: 14px 30px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
@@ -146,6 +156,7 @@
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 51, 153, 0.25);
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
         button:hover {
             transform: translateY(-2px);
@@ -232,7 +243,7 @@
         <div class="form-group"><label>Immediate Actions</label><textarea name="immediateActions" required placeholder="Actions taken..."></textarea></div>
 
         <div class="form-group">
-            <label>Time Elapsed</label>
+            <label>Time Elapsed <span>(Between Incident and Immediate Action)</span></label>
             <select name="timeElapsed">
                 <option value="" disabled selected>Select time</option>
                 <option value="1-2 Hours">1-2 Hours</option>
