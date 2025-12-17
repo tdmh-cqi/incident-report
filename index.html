@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TDMH Incident Reporting</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* TDMH Brand Colors (Based on Logo) */
+        /* TDMH Brand Colors */
         :root {
-            --primary: #003399; /* Deep Blue from Logo */
-            --accent: #009933;  /* Bright Green from Logo */
+            --primary: #003399; /* Deep Blue */
+            --accent: #009933;  /* Bright Green */
             --dark: #1a252f;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Poppins', sans-serif; /* Clean, modern font for body */
             margin: 0;
             padding: 20px 50px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Aligns form to the left */
+            align-items: flex-start;
             
             /* Background Settings */
             background-image: url('images/tdmh-background.jpg');
@@ -30,106 +35,126 @@
             background-attachment: fixed;
         }
 
-        /* 🌟 THE GLASS STYLE (Shared by CQI Box and Form) */
+        /* 🌟 ULTRA-GLASS STYLE */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.75); /* High transparency */
-            backdrop-filter: blur(12px); /* This blurs the building BEHIND the box */
-            -webkit-backdrop-filter: blur(12px); /* Safari support */
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px rgba(0, 51, 153, 0.2); /* Soft Blue Glow */
+            /* Much more transparent (0.6) */
+            background: rgba(255, 255, 255, 0.6); 
+            /* Stronger blur to keep text readable */
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 51, 153, 0.15);
             border-radius: 16px;
         }
 
         /* 🌟 CQI Title Box */
         .cqi-box {
-            padding: 15px 35px;
+            padding: 15px 40px;
             margin-bottom: 25px;
             display: inline-block;
-            border-left: 6px solid var(--primary); /* Blue accent line */
+            border-left: 5px solid var(--primary);
             transition: transform 0.3s;
         }
         .cqi-box:hover {
-            transform: translateY(-2px); /* Subtle float on hover */
-            box-shadow: 0 10px 40px rgba(0, 51, 153, 0.3); /* Stronger glow */
+            transform: translateX(5px); /* Subtle slide */
+            background: rgba(255, 255, 255, 0.75); /* Lightens on hover */
         }
 
         .cqi-title {
-            color: var(--primary); /* Professional Blue */
-            font-size: 26px;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif; /* Fancy Font */
+            color: var(--primary);
+            font-size: 32px; /* Slightly larger */
+            font-weight: 900;
             margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0px 0px 1px rgba(255,255,255,0.8);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.5);
         }
 
         /* 🌟 Form Container */
         .container {
-            max-width: 450px; /* Smaller width as requested */
+            max-width: 450px; /* Small and compact */
             width: 100%;
-            padding: 30px;
+            padding: 35px;
         }
         
         /* 🌟 Logo Animation */
-        .header { text-align: center; margin-bottom: 20px; }
+        .header { text-align: center; margin-bottom: 25px; }
         .logo-link { display: inline-block; cursor: pointer; }
         .header img { 
-            max-height: 90px; 
+            max-height: 95px; 
             margin-bottom: 10px; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy Zoom Effect */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
         .header img:hover {
-            transform: scale(1.15); /* Zooms in */
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+            transform: scale(1.1);
         }
-        .header h1 { color: var(--primary); margin: 0; font-size: 22px; font-weight: 700; }
         
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 6px; font-weight: 700; color: #222; font-size: 13px; }
+        .header h1 { 
+            font-family: 'Playfair Display', serif; /* Fancy Font */
+            color: var(--primary); 
+            margin: 0; 
+            font-size: 26px; 
+            font-weight: 700; 
+        }
+        
+        .form-group { margin-bottom: 18px; }
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: #002266; /* Dark blue text for contrast */
+            font-size: 13px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
         
         /* Inputs */
         input, select, textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid rgba(0,0,0,0.1);
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 8px;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
             font-size: 14px;
             transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.8); /* See-through inputs */
+            /* Very transparent inputs */
+            background: rgba(255, 255, 255, 0.5); 
         }
         input:focus, select:focus, textarea:focus {
-            background: #fff;
-            border-color: var(--accent); /* Green border on focus */
-            box-shadow: 0 0 0 4px rgba(0, 153, 51, 0.1); /* Green Glow */
+            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 51, 153, 0.1);
             outline: none;
         }
-        textarea { height: 80px; resize: vertical; }
+        textarea { height: 90px; resize: vertical; }
         
         /* 🌟 Submit Button */
         button {
-            background: linear-gradient(135deg, var(--primary), #0044cc); /* Blue Gradient */
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary), #0044cc);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 30px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 51, 153, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 51, 153, 0.25);
+            letter-spacing: 1px;
         }
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 51, 153, 0.4);
-            background: linear-gradient(135deg, #0044cc, var(--primary));
+            box-shadow: 0 8px 25px rgba(0, 51, 153, 0.35);
         }
         
-        #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; font-size: 14px; }
-        .success { color: var(--accent); background: rgba(255,255,255,0.9); padding: 8px; border-radius: 6px; }
-        .error { color: red; background: rgba(255,255,255,0.9); padding: 8px; border-radius: 6px; }
+        #statusMessage { text-align: center; margin-top: 15px; font-weight: 600; font-size: 14px; }
+        .success { color: var(--accent); background: rgba(255,255,255,0.9); padding: 10px; border-radius: 6px; }
+        .error { color: #cc0000; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 6px; }
     </style>
 </head>
 <body>
