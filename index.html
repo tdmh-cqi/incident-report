@@ -13,38 +13,45 @@
         }
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            /* ⚠️ UPDATED: Looks inside the 'images' folder */
+            /* Looks inside the 'images' folder */
             background-image: url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
             margin: 0;
-            padding: 20px;
+            padding: 20px 50px; /* Added side padding */
             min-height: 100vh;
             display: flex;
+            flex-direction: column; /* Stack CQI text and container */
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Move everything to the left */
         }
+
+        /* New style for the prominent CQI text outside the box */
+        .cqi-title {
+            color: var(--primary);
+            font-size: 36px; /* Much bigger */
+            font-weight: 800; /* Extra bold */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); /* White glow for readability */
+        }
+
         .container {
-            /* Semi-transparent white box */
-            background: rgba(255, 255, 255, 0.92);
-            max-width: 700px;
+            /* Increased transparency (0.85) */
+            background: rgba(255, 255, 255, 0.85);
+            max-width: 600px; /* Slightly smaller width */
             width: 100%;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px); /* Increased blur */
         }
         
         .header { text-align: center; margin-bottom: 30px; }
-        
-        /* ⚠️ UPDATED: Logo styling */
         .header img { max-height: 100px; margin-bottom: 15px; }
+        .header h1 { color: var(--secondary); margin: 0; font-size: 24px; font-weight: 700; }
         
-        .header h1 { color: var(--secondary); margin: 0; font-size: 28px; font-weight: 700; }
-        .header p.cqi-text { color: var(--primary); margin-top: 5px; font-weight: 600; font-size: 16px; }
-
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--secondary); font-size: 14px; }
         
@@ -56,6 +63,7 @@
             box-sizing: border-box;
             font-size: 14px;
             transition: border-color 0.3s;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent inputs */
         }
         input:focus, select:focus, textarea:focus { border-color: var(--secondary); outline: none; }
         textarea { height: 100px; resize: vertical; }
@@ -82,11 +90,12 @@
 </head>
 <body>
 
+<div class="cqi-title">CQI (Continuous Quality Improvement)</div>
+
 <div class="container">
     <div class="header">
         <img src="images/tdmh-logo.png" alt="TDMH Logo" onerror="this.style.display='none'">
         <h1>Incident Report Form</h1>
-        <p class="cqi-text">CQI (Continuous Quality Improvement)</p>
     </div>
 
     <form id="irForm">
