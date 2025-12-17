@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDMH Incident Reporting</title>
+    <style>
+        /* TDMH Medical Style */
+        :root {
+            --primary: #800000; /* Maroon */
+            --secondary: #2c3e50; /* Dark Blue */
+            --light: #f4f6f7;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--light); margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 20px; }
+        .header img { max-height: 80px; margin-bottom: 10px; }
+        .header h1 { color: var(--primary); margin: 0; font-size: 24px; }
+        .header p { color: #666; margin-top: 5px; }
+
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--secondary); }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 100px; resize: vertical; }
+        
+        button { background-color: var(--primary); color: white; border: none; padding: 15px 30px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; transition: background 0.3s; }
+        button:hover { background-color: #600000; }
+        
+        #statusMessage { text-align: center; margin-top: 20px; font-weight: bold; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="images/logo.png" alt="TDMH Logo" onerror="this.style.display='none'">
+        <h1>Incident Report Form</h1>
+        <p>Continuous Quality Improvement (CQI) Department</p>
+    </div>
+
+    <form id="irForm">
+        <div class="form-group"><label>Email Address</label><input type="email" name="email" required></div>
+
+        <div class="form-group"><label>Date</label><input type="date" name="date" required></div>
+
+        <div class="form-group"><label>Time</label><input type="time" name="time" required></div>
+
+        <div class="form-group">
+            <label>Department</label>
+            <select name="department" required>
+                <option value="" disabled selected>Select Department...</option>
+                <option value="Nursing">Nursing</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="form-group"><label>Room</label><input type="text" name="room" required></div>
+
+        <div class="form-group"><label>Name of Personnel</label><input type="text" name="personnel" required></div>
+
+        <div class="form-group"><label>Age</label><input type="number" name="age"></div>
+
+        <div class="form-group">
+            <label>Sex</label>
+            <select name="sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+        </div>
+
+        <div class="form-group"><label>Attending Physician/s</label><input type="text" name="physician"></div>
+
+        <div class="form-group">
+            <label>Type of Incident</label>
+            <select name="incidentType" required>
+                <option value="Patient Care/Safety Event">Patient Care/Safety Event</option>
+                <option value="Process/Service Complaint">Process/Service Complaint</option>
+                <option value="Documentation Error">Documentation Error</option>
+                <option value="Infastructure/Equipment Failure">Infastructure/Equipment Failure</option>
+                <option value="Staffing/HR issues">Staffing/HR issues</option>
+            </select>
+        </div>
+
+        <div class="form-group"><label>Description of Incident</label><textarea name="description" required></textarea></div>
+
+        <div class="form-group">
+            <label>Severity/Impact Level</label>
+            <select name="severity" required>
+                <option value="Level 1 (Minor)">Level 1 (Minor): Low or no Patient/Process impact.</option>
+                <option value="Level 2 (Moderate)">Level 2 (Moderate): Reversible impact; requires immediate local correction.</option>
+                <option value="Level 3 (Major)">Level 3 (Major): Significant patient harm or systemic process failure; requires root cause analysis.</option>
+            </select>
+        </div>
+
+        <div class="form-group"><label>Immediate Actions Taken and Measurements</label><textarea name="immediateActions" required></textarea></div>
+
+        <div class="form-group">
+            <label>Time Elapsed (Hours) between Incident and Immediate Action</label>
+            <select name="timeElapsed">
+                <option value="1-2 Hours">1-2 Hours</option>
+                <option value="4-8 Hours">4-8 Hours</option>
+                <option value="24 Hours">24 Hours</option>
+                <option value="48 Hours">48 Hours</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Upload Image</label>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <div class="form-group"><label>Reported By</label><input type="text" name="reportedBy" required></div>
+
+        <button type="submit" id="submitBtn">Submit Report</button>
+        <p id="statusMessage"></p>
+    </form>
+</div>
+
+<script>
+    // ⬇️ THIS IS YOUR BACKEND URL (Already inserted for you)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVAsDutofURsZyku-Fx8nCGYIJIW47wA_8-_4uwImu4Bxj0bFR5fGHkVjioiAS2Liq/exec";
+
+    const form = document.getElementById('irForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    const fileInput = document.getElementById('fileInput');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Submitting...";
+        statusMessage.innerText = "";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                const base64 = reader.result.split(',')[1];
+                data.fileData = base64;
+                data.fileName = file.name;
+                data.fileType = file.type;
+                sendData(data);
+            };
+        } else {
+            sendData(data);
+        }
+    });
+
+    function sendData(data) {
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.result === 'success') {
+                statusMessage.className = "success";
+                statusMessage.innerText = "Report Submitted Successfully!";
+                form.reset();
+            } else {
+                throw new Error(response.message);
+            }
+        })
+        .catch(error => {
+            statusMessage.className = "error";
+            statusMessage.innerText = "Error: " + error.message;
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Submit Report";
+        });
+    }
+</script>
+
+</body>
+</html>
