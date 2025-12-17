@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CQI Incident Report</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Raleway:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
     <style>
         /* --- General Page Styling --- */
         body {
             margin: 0;
             padding: 0;
-            /* Using Raleway for the main text - sleek and readable */
             font-family: 'Raleway', sans-serif;
             
-            /* BACKGROUND */
-            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/tdmh-background.jpg');
+            /* BACKGROUND UPDATE: Made it much lighter using a white overlay */
+            background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -29,18 +28,17 @@
 
         /* --- Glass Container --- */
         .glass-container {
-            background: rgba(255, 255, 255, 0.93); /* High quality glass feel */
+            background: rgba(255, 255, 255, 0.93);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             
             width: 100%;
-            max-width: 600px; /* Slightly wider to accommodate the fancy fonts */
+            max-width: 600px;
             padding: 50px;
             
             border-radius: 35px;
-            /* OUTLINE: Made it Greener as requested (Emerald/Teal mix) */
             border: 3px solid rgba(0, 180, 130, 0.5); 
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
             
             position: relative;
         }
@@ -57,35 +55,34 @@
         }
 
         .main-logo {
-            /* Made MUCH LARGER */
             width: 280px; 
             height: auto;
             margin-bottom: 20px;
             transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
 
         .logo-link:hover .main-logo {
             transform: scale(1.1);
         }
 
-        /* CQI Text - Now the Largest & Fanciest */
+        /* CQI Text - KEPT SAME STYLE/COLOR */
         h1 {
-            font-family: 'Playfair Display', serif; /* Fancy Font */
+            font-family: 'Playfair Display', serif;
             color: #004aad;
-            font-size: 32px; /* Large */
+            font-size: 32px;
             font-weight: 800;
             margin: 0 0 5px 0;
             line-height: 1.2;
             letter-spacing: 0.5px;
         }
 
-        /* Subtitle - Slightly smaller than CQI */
+        /* Subtitle - KEPT SAME STYLE/COLOR */
         h2 {
-            font-family: 'Playfair Display', serif; /* Fancy Font */
+            font-family: 'Playfair Display', serif;
             color: #004aad;
-            font-size: 26px; /* Close to H1, but smaller */
+            font-size: 26px;
             font-weight: 700;
             margin: 0;
             opacity: 0.9;
@@ -93,19 +90,19 @@
 
         /* --- Form Fields Styling --- */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             text-align: left;
         }
 
+        /* LABEL UPDATE: Changed style to black and simple font like reference image */
         label {
             display: block;
             margin-bottom: 8px;
-            color: #004aad;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Raleway', sans-serif;
+            color: #333333; /* Changed to Black */
+            font-size: 16px;
+            font-weight: 500; /* Reduced bold weight */
+            /* Removed uppercase transform */
+            font-family: 'Roboto', sans-serif; /* Cleaner font like reference */
         }
 
         input, select, textarea {
@@ -138,7 +135,6 @@
         ::placeholder {
             color: #999;
             font-weight: 500;
-            font-style: italic; /* Adds a little fancy touch */
         }
 
         /* --- Submit Button --- */
