@@ -12,7 +12,7 @@
             padding: 0;
             font-family: 'Raleway', sans-serif;
             
-            /* Background: 30% White Overlay so building is visible but light */
+            /* Background: 30% White Overlay */
             background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/tdmh-background.jpg');
             background-size: cover;
             background-position: center;
@@ -37,7 +37,7 @@
             padding: 50px;
             
             border-radius: 35px;
-            /* UPDATED: Exact Blue Border matching the CQI/Logo (#004aad) */
+            /* Blue Border matching the CQI/Logo (#004aad) */
             border: 3px solid #004aad; 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
             
@@ -206,111 +206,109 @@
         <form>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" placeholder="Enter email address...">
+                <input type="email" name="email" placeholder="Enter email address...">
             </div>
 
             <div class="form-group">
                 <label>Date</label>
-                <input type="date">
+                <input type="date" name="date">
             </div>
             <div class="form-group">
                 <label>Time</label>
-                <input type="time">
+                <input type="time" name="time">
             </div>
 
             <div class="form-group">
                 <label>Department</label>
-                <select>
+                <select name="department">
                     <option value="" disabled selected>Select Department</option>
-                    <option value="ER">ER</option>
                     <option value="Nursing">Nursing</option>
                     <option value="Admin">Admin</option>
-                    <option value="Pharmacy">Pharmacy</option>
-                    <option value="Laboratory">Laboratory</option>
-                    <option value="Radiology">Radiology</option>
-                    <option value="Billing">Billing</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Room</label>
-                <input type="text" placeholder="Room Number">
+                <input type="text" name="room" placeholder="Room Number">
             </div>
 
             <div class="form-group">
                 <label>Name of Personnel</label>
-                <input type="text" placeholder="Full Name">
+                <input type="text" name="personnel_name" placeholder="Full Name">
             </div>
+            
             <div class="form-group">
                 <label>Age</label>
-                <input type="number" placeholder="Age">
+                <input type="number" name="age" placeholder="Age">
             </div>
+            
             <div class="form-group">
                 <label>Sex</label>
-                <select>
+                <select name="sex">
                     <option value="" disabled selected>Select Sex</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Attending Physician/s</label>
-                <input type="text" placeholder="Dr. Name">
+                <input type="text" name="physician" placeholder="Dr. Name">
             </div>
 
             <div class="form-group">
                 <label>Type of Incident</label>
-                <select>
+                <select name="incident_type">
                     <option value="" disabled selected>Select Incident Type</option>
-                    <option value="Medication Error">Medication Error</option>
-                    <option value="Fall">Fall</option>
-                    <option value="Equipment Failure">Equipment Failure</option>
-                    <option value="Complaint">Complaint</option>
-                    <option value="Others">Others</option>
+                    <option value="Patient Care/Safety Event">Patient Care/Safety Event</option>
+                    <option value="Process/Service Complaint">Process/Service Complaint</option>
+                    <option value="Documentation Error">Documentation Error</option>
+                    <option value="Infastructure/Equipment Failure">Infastructure/Equipment Failure</option>
+                    <option value="Staffing/HR issues">Staffing/HR issues</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Description</label>
-                <textarea placeholder="Please describe what happened in detail..."></textarea>
+                <label>Description of Incident</label>
+                <textarea name="description" placeholder="Please describe what happened in detail..."></textarea>
             </div>
 
             <div class="form-group">
-                <label>Severity Level</label>
-                <select>
+                <label>Severity/Impact Level</label>
+                <select name="severity">
                     <option value="" disabled selected>Select Severity</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                    <option value="Sentinel Event">Sentinel Event</option>
+                    <option value="Level 1">Level 1 (Minor): Low or no Patient/Process impact</option>
+                    <option value="Level 2">Level 2 (Moderate): Reversible impact; requires immediate local correction</option>
+                    <option value="Level 3">Level 3 (Major): Significant patient harm or systemic process failure; requires root cause analysis</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Immediate Actions</label>
-                <textarea placeholder="What actions were taken immediately?"></textarea>
+                <label>Immediate Actions Taken and Measurements</label>
+                <textarea name="immediate_actions" placeholder="What actions were taken immediately?"></textarea>
             </div>
 
             <div class="form-group">
-                <label>Time Elapsed (Between Incident and Immediate Action)</label>
-                <select>
+                <label>Time Elapsed (Hours) between Incident and Immediate Action</label>
+                <select name="time_elapsed">
                     <option value="" disabled selected>Select Time Elapsed</option>
-                    <option value="Immediate">Immediate</option>
-                    <option value="Within 30 mins">Within 30 mins</option>
-                    <option value="1 hour">1 hour</option>
-                    <option value="More than 1 hour">More than 1 hour</option>
+                    <option value="1-2 Hours">1-2 Hours</option>
+                    <option value="4-8 Hours">4-8 Hours</option>
+                    <option value="24 Hours">24 Hours</option>
+                    <option value="48 Hours">48 Hours</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Upload Image</label>
-                <input type="file" style="background: white; padding: 12px;">
+                <input type="file" name="image_upload" style="background: white; padding: 12px;">
             </div>
 
             <div class="form-group">
                 <label>Reported By</label>
-                <input type="text" placeholder="Your Name">
+                <input type="text" name="reported_by" placeholder="Your Name">
             </div>
 
             <button type="submit" class="submit-btn">Submit Report</button>
