@@ -14,10 +14,11 @@
             background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; justify-content: center; align-items: flex-start;
             min-height: 100vh; padding: 40px 20px;
+            box-sizing: border-box;
         }
 
         .glass-container {
-            background: rgba(255, 255, 255, 0.90);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             width: 100%; max-width: 700px;
             padding: 50px; border-radius: 35px;
@@ -78,6 +79,40 @@
 
         /* Highlight for Routing Section */
         .routing-section { background-color: #fff8e1; padding: 25px; border-radius: 20px; border: 2px solid #ffc107; }
+
+        /* --- NEW SUCCESS MODAL STYLING --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); z-index: 1000;
+            display: none; /* Hidden by default */
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-content {
+            background: white; padding: 40px; border-radius: 25px; text-align: center;
+            max-width: 450px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-top: 5px solid #004aad;
+            animation: slideIn 0.4s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        /* Animated Checkmark */
+        .checkmark-container { margin-bottom: 20px; }
+        .jumping-check {
+            width: 80px; height: 80px; fill: #004aad;
+            animation: subtleJump 2s infinite ease-in-out;
+        }
+        @keyframes subtleJump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .modal-title { font-family: 'Playfair Display', serif; color: #004aad; font-size: 24px; margin-bottom: 15px; }
+        .modal-text { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 30px; }
+        .modal-btn-again {
+            background: #004aad; color: white; border: none; padding: 15px 30px;
+            font-size: 16px; font-weight: bold; border-radius: 12px; cursor: pointer;
+            width: 100%; transition: background 0.3s;
+        }
+        .modal-btn-again:hover { background: #003380; }
     </style>
 </head>
 <body>
@@ -226,93 +261,64 @@
         </form>
     </div>
 
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="checkmark-container">
+                <svg class="jumping-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+            </div>
+            <h2 class="modal-title">Report Submitted Successfully!</h2>
+            <p class="modal-text">Thank you for submitting your IR. Rest assured that this information is strictly confidential and will only be viewable by the specific department you chose.</p>
+            <button class="modal-btn-again" onclick="window.location.reload()">Submit Another Report</button>
+        </div>
+    </div>
+
     <script>
         // ==========================================
-        // YOUR NEW DEPLOYMENT URL
+        // YOUR UPDATED GOOGLE SCRIPT URL
         // ==========================================
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyMb_w9KgBqzmauaOhdMGNHMTsYhB7qMg3sEeF8ipIEI7yvHrxAJ_quHpFr8yUoramA/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzXFTApwrOa7MSKM5EuNJuDV-XalyqF2gg6v9ogOWpihDaHEyRoY6kt6sV6T6g0xPJ2/exec'; 
 
-        // Department List
-        const departments = [
-            "ADMITTING", "AMBULANCE", "APE/YAKAP", "BILLING", "CASHIER", "CQI", 
-            "CREDIT AND COLLECTIONS", "CSR", "CUSTOMER RELATIONS OFFICER", "DIETARY", 
-            "ER", "FINANCE", "GSD (HOUSEKEEPING & PROPERTY)", "HMO CLAIMS", "HMO OPD", 
-            "HOMES", "HOSPITAL ADMIN", "HUMAN RESOURCE", "IT", "LABORATORY", 
-            "MAINTENANCE", "MEDICAL RECORDS", "MEDICAL SOCIAL SERVICE", "NICU", "NSO", 
-            "OPD", "OR", "PHARMACY", "PHILHEALTH", "PURCHASING", "RADIOLOGY", 
-            "SECURITY", "ST3", "ST4B", "ST5A", "ST5B"
-        ];
+        const departments = ["ADMITTING", "AMBULANCE", "APE/YAKAP", "BILLING", "CASHIER", "CQI", "CREDIT AND COLLECTIONS", "CSR", "CUSTOMER RELATIONS OFFICER", "DIETARY", "ER", "FINANCE", "GSD (HOUSEKEEPING & PROPERTY)", "HMO CLAIMS", "HMO OPD", "HOMES", "HOSPITAL ADMIN", "HUMAN RESOURCE", "IT", "LABORATORY", "MAINTENANCE", "MEDICAL RECORDS", "MEDICAL SOCIAL SERVICE", "NICU", "NSO", "OPD", "OR", "PHARMACY", "PHILHEALTH", "PURCHASING", "RADIOLOGY", "SECURITY", "ST3", "ST4B", "ST5A", "ST5B"];
 
-        // --- 1. INITIALIZATION ---
         window.onload = function() {
             const deptContainer = document.getElementById("deptCheckboxContainer");
             const reportToSelect = document.getElementById("reportTo");
 
             // Populate Checkboxes for Dept (Max 3)
             departments.forEach(dept => {
-                // Create Checkbox
-                let div = document.createElement("div");
-                div.className = "checkbox-item";
-                let checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.value = dept;
-                checkbox.name = "deptCheckbox";
-                checkbox.onclick = limitCheckboxes; // Add limit logic
-                let label = document.createElement("span");
-                label.innerText = dept;
-                div.appendChild(checkbox);
-                div.appendChild(label);
-                deptContainer.appendChild(div);
-
-                // Populate Routing Dropdown
-                let option = document.createElement("option");
-                option.text = dept; option.value = dept;
-                reportToSelect.add(option);
+                let div = document.createElement("div"); div.className = "checkbox-item";
+                let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.value = dept; checkbox.name = "deptCheckbox"; checkbox.onclick = limitCheckboxes;
+                let label = document.createElement("span"); label.innerText = dept;
+                div.appendChild(checkbox); div.appendChild(label); deptContainer.appendChild(div);
+                
+                let option = document.createElement("option"); option.text = dept; option.value = dept; reportToSelect.add(option);
             });
-
-            // Initialize Canvas
             resizeCanvas();
         };
 
-        // --- 2. CHECKBOX LIMIT LOGIC (Max 3) ---
         function limitCheckboxes() {
-            const checkboxes = document.querySelectorAll('input[name="deptCheckbox"]:checked');
-            if (checkboxes.length > 3) {
+            if (document.querySelectorAll('input[name="deptCheckbox"]:checked').length > 3) {
                 this.checked = false;
                 alert("You can only select a maximum of 3 departments.");
             }
         }
 
-        // --- 3. SIGNATURE PAD LOGIC ---
         const canvas = document.getElementById("sigCanvas");
         const ctx = canvas.getContext("2d");
         let writingMode = false;
 
-        // Resize canvas correctly
         function resizeCanvas() {
             canvas.width = canvas.parentElement.clientWidth;
             canvas.height = 200;
-            ctx.lineWidth = 2;
-            ctx.lineJoin = 'round';
-            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.strokeStyle = '#000000';
         }
         window.addEventListener('resize', resizeCanvas);
-
-        // Mouse Events
         canvas.addEventListener('mousedown', (e) => { writingMode = true; ctx.beginPath(); getPos(e); });
         canvas.addEventListener('mouseup', () => { writingMode = false; });
         canvas.addEventListener('mousemove', draw);
-
-        // Touch Events (Mobile)
-        canvas.addEventListener('touchstart', (e) => { 
-            writingMode = true; ctx.beginPath(); getPos(e); 
-            e.preventDefault(); // Stop scrolling
-        }, {passive: false});
+        canvas.addEventListener('touchstart', (e) => { writingMode = true; ctx.beginPath(); getPos(e); e.preventDefault(); }, {passive: false});
         canvas.addEventListener('touchend', () => { writingMode = false; });
-        canvas.addEventListener('touchmove', (e) => {
-            draw(e);
-            e.preventDefault(); // Stop scrolling
-        }, {passive: false});
+        canvas.addEventListener('touchmove', (e) => { draw(e); e.preventDefault(); }, {passive: false});
 
         function getPos(event) {
             const rect = canvas.getBoundingClientRect();
@@ -320,7 +326,6 @@
             const clientY = event.clientY || event.touches[0].clientY;
             ctx.moveTo(clientX - rect.left, clientY - rect.top);
         }
-
         function draw(event) {
             if (!writingMode) return;
             const rect = canvas.getBoundingClientRect();
@@ -329,114 +334,49 @@
             ctx.lineTo(clientX - rect.left, clientY - rect.top);
             ctx.stroke();
         }
+        function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+        function isCanvasBlank(canvas) { const blank = document.createElement('canvas'); blank.width = canvas.width; blank.height = canvas.height; return canvas.toDataURL() === blank.toDataURL(); }
 
-        function clearSignature() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function isCanvasBlank(canvas) {
-            const blank = document.createElement('canvas');
-            blank.width = canvas.width;
-            blank.height = canvas.height;
-            return canvas.toDataURL() === blank.toDataURL();
-        }
-
-        // --- 4. SUBMISSION LOGIC ---
         const form = document.getElementById('incidentForm');
         const submitBtn = document.getElementById('submitBtn');
         const loadingMsg = document.getElementById('loading-message');
         const fileInput = document.getElementById('imageUpload');
+        const successModal = document.getElementById('successModal');
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-
-            // Validation: Check Departments
             const selectedDepts = Array.from(document.querySelectorAll('input[name="deptCheckbox"]:checked')).map(cb => cb.value);
-            if (selectedDepts.length === 0) {
-                alert("Please select at least one Department/Interested Party.");
-                return;
-            }
+            if (selectedDepts.length === 0) { alert("Please select at least one Department/Interested Party."); return; }
+            if (isCanvasBlank(canvas)) { alert("Please sign the form before submitting."); return; }
+            
+            submitBtn.disabled = true; submitBtn.style.opacity = "0.5"; loadingMsg.style.display = "block";
 
-            // Validation: Check Signature
-            if (isCanvasBlank(canvas)) {
-                alert("Please sign the form before submitting.");
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = "0.5";
-            loadingMsg.style.display = "block";
-
-            // Gather Data
             const dataPayload = {
-                reportedBy: document.getElementById('reportedBy').value,
-                email: document.getElementById('email').value,
-                date: document.getElementById('date').value,
-                time: document.getElementById('time').value,
-                department: selectedDepts.join(", "), // Join multiple depts with comma
-                room: document.getElementById('room').value,
-                subjectName: document.getElementById('subjectName').value,
-                age: document.getElementById('age').value,
-                sex: document.getElementById('sex').value,
-                physician: document.getElementById('physician').value,
-                incidentType: document.getElementById('incidentType').value,
-                description: document.getElementById('description').value,
-                severity: document.getElementById('severity').value,
-                immediateAction: document.getElementById('immediateAction').value,
-                timeElapsed: document.getElementById('timeElapsed').value,
-                reportTo: document.getElementById('reportTo').value,
-                signatureData: canvas.toDataURL(), // Send Signature Base64
-                fileData: "", fileName: "", fileType: ""
+                reportedBy: document.getElementById('reportedBy').value, email: document.getElementById('email').value, date: document.getElementById('date').value, time: document.getElementById('time').value,
+                department: selectedDepts.join(", "), room: document.getElementById('room').value, subjectName: document.getElementById('subjectName').value, age: document.getElementById('age').value, sex: document.getElementById('sex').value, physician: document.getElementById('physician').value, incidentType: document.getElementById('incidentType').value, description: document.getElementById('description').value, severity: document.getElementById('severity').value, immediateAction: document.getElementById('immediateAction').value, timeElapsed: document.getElementById('timeElapsed').value, reportTo: document.getElementById('reportTo').value, signatureData: canvas.toDataURL(), fileData: "", fileName: "", fileType: ""
             };
 
-            // Handle File & Send
             if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const base64Data = e.target.result.split(',')[1];
-                    dataPayload.fileData = base64Data;
-                    dataPayload.fileName = file.name;
-                    dataPayload.fileType = file.type;
-                    sendData(dataPayload);
-                };
+                const file = fileInput.files[0]; const reader = new FileReader();
+                reader.onload = function(e) { dataPayload.fileData = e.target.result.split(',')[1]; dataPayload.fileName = file.name; dataPayload.fileType = file.type; sendData(dataPayload); };
                 reader.readAsDataURL(file);
-            } else {
-                sendData(dataPayload);
-            }
+            } else { sendData(dataPayload); }
         });
 
         function sendData(payload) {
-            fetch(scriptURL, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
+            fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
             .then(response => response.json())
             .then(result => {
                 if (result.result === "success") {
-                    // Custom Confidential Message
-                    alert("Thank you for submitting your IR. Rest assured that this information is strictly confidential and will only be viewable by the specific department you chose.");
-                    form.reset();
-                    clearSignature();
-                    // Reset Checkboxes
-                    document.querySelectorAll('input[name="deptCheckbox"]').forEach(cb => cb.checked = false);
-                } else {
-                    alert('❌ Error: ' + result.message);
-                }
+                    // SHOW CUSTOM MODAL
+                    successModal.style.display = 'flex';
+                    form.reset(); clearSignature(); document.querySelectorAll('input[name="deptCheckbox"]').forEach(cb => cb.checked = false);
+                } else { alert('❌ Error: ' + result.message); }
                 resetUI();
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Submission failed. Check internet connection or CORS permission.');
-                resetUI();
-            });
+            .catch(error => { console.error('Error:', error); alert('Submission failed. Check connection or CORS permission.'); resetUI(); });
         }
-
-        function resetUI() {
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = "1";
-            loadingMsg.style.display = "none";
-        }
+        function resetUI() { submitBtn.disabled = false; submitBtn.style.opacity = "1"; loadingMsg.style.display = "none"; }
     </script>
 </body>
 </html>
