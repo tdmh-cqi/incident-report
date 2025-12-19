@@ -6,82 +6,55 @@
     <title>CQI Incident Report</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Raleway:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
     <style>
-        /* --- General Page Styling --- */
+        /* --- YOUR ORIGINAL STYLING --- */
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Raleway', sans-serif;
-            /* Background: 30% White Overlay */
             background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/tdmh-background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 40px 20px;
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; justify-content: center; align-items: flex-start;
+            min-height: 100vh; padding: 40px 20px;
         }
 
-        /* --- Glass Container --- */
         .glass-container {
             background: rgba(255, 255, 255, 0.90);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            width: 100%;
-            max-width: 600px;
-            padding: 50px;
-            border-radius: 35px;
-            /* Blue Border matching the CQI/Logo (#004aad) */
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            width: 100%; max-width: 700px;
+            padding: 50px; border-radius: 35px;
             border: 3px solid #004aad; 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-            position: relative;
         }
 
-        /* --- Header Section --- */
         .header-section { text-align: center; margin-bottom: 40px; }
-        .logo-link { display: inline-block; text-decoration: none; }
-        .main-logo {
-            width: 280px; height: auto; margin-bottom: 20px;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-        .logo-link:hover .main-logo { transform: scale(1.1); }
+        .main-logo { width: 280px; height: auto; margin-bottom: 20px; }
         
-        /* Typography */
-        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin: 0 0 5px 0; line-height: 1.2; letter-spacing: 0.5px; }
-        h2 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 26px; font-weight: 700; margin: 0; opacity: 0.9; }
+        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin-bottom: 5px; }
+        h2 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 26px; font-weight: 700; margin: 0; }
+        h3 { color: #b33a3a; font-family: 'Raleway', sans-serif; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
 
-        /* --- Form Fields Styling --- */
         .form-group { margin-bottom: 22px; text-align: left; }
-        label { display: block; margin-bottom: 8px; color: #000000; font-size: 16px; font-weight: 500; font-family: 'Roboto', sans-serif; }
-        input, select, textarea {
-            width: 100%; padding: 15px 18px; background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 12px;
-            font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 600; color: #333; box-sizing: border-box; transition: all 0.3s ease;
-        }
-        input:focus, select:focus, textarea:focus { outline: none; background: #ffffff; border-color: #004aad; box-shadow: 0 0 15px rgba(0, 74, 173, 0.1); }
-        textarea { resize: vertical; min-height: 100px; }
-        ::placeholder { color: #999; font-weight: 500; }
+        label { display: block; margin-bottom: 8px; color: #000; font-size: 16px; font-weight: 600; font-family: 'Roboto', sans-serif; }
+        .helper-text { font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-style: italic; }
 
-        /* --- Submit Button --- */
-        .submit-btn {
-            background: linear-gradient(135deg, #004aad, #0070e0); color: white; font-family: 'Raleway', sans-serif;
-            font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; padding: 20px;
-            border: none; border-radius: 15px; cursor: pointer; width: 100%; margin-top: 30px;
-            transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(0, 74, 173, 0.3);
+        input, select, textarea {
+            width: 100%; padding: 15px 18px; background: #f8f9fa; border: 2px solid #e0e0e0;
+            border-radius: 12px; font-family: 'Raleway', sans-serif; font-size: 15px; color: #333;
+            box-sizing: border-box; transition: all 0.3s ease;
         }
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 74, 173, 0.4); background: linear-gradient(135deg, #003380, #005bb5); }
-        
+        input:focus, select:focus, textarea:focus { outline: none; background: #fff; border-color: #004aad; }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #004aad, #0070e0); color: white;
+            font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            padding: 20px; border: none; border-radius: 15px; cursor: pointer; width: 100%; margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(0, 74, 173, 0.3);
+        }
+        .submit-btn:hover { transform: translateY(-3px); }
+
         #loading-message { display: none; text-align: center; margin-top: 15px; font-weight: bold; color: #004aad; }
 
-        /* Mobile */
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .glass-container { padding: 25px; border-width: 2px; }
-            .main-logo { width: 220px; }
-            h1 { font-size: 24px; } h2 { font-size: 20px; }
-        }
+        /* Highlight for Routing Section */
+        .routing-section { background-color: #fff8e1; padding: 20px; border-radius: 15px; border: 2px solid #ffc107; }
     </style>
 </head>
 <body>
@@ -92,116 +65,129 @@
             <a href="index.html" class="logo-link">
                 <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
             </a>
-            <h1>CQI: Continuous Quality Improvement</h1>
-            <h2>Incident Report Form</h2>
+            <h1>CQI Incident Report</h1>
+            <h2>Confidential Employee Form</h2>
         </div>
 
         <form id="incidentForm">
+            
+            <h3>1. Reporter Information</h3>
+            <div class="form-group">
+                <label>Reported By</label>
+                <span class="helper-text">(Your Full Name)</span>
+                <input type="text" id="reportedBy" required>
+            </div>
             <div class="form-group">
                 <label>Email Address</label>
+                <span class="helper-text">(Active Email for Feedback)</span>
                 <input type="email" id="email" required>
             </div>
 
+            <h3>2. Incident Details</h3>
             <div class="form-group">
-                <label>Date</label>
+                <label>Date of Incident</label>
                 <input type="date" id="date" required>
             </div>
             <div class="form-group">
-                <label>Time</label>
+                <label>Time of Incident</label>
                 <input type="time" id="time" required>
             </div>
-
             <div class="form-group">
-                <label>Department</label>
+                <label>Department / Interested Parties</label>
+                <span class="helper-text">(Where did it happen? / Who is involved?)</span>
                 <select id="department" required>
-                    <option value="" disabled selected>Select Department</option>
-                    <option value="Nursing">Nursing</option>
-                    <option value="Admin">Admin</option>
+                    <option value="" disabled selected>Loading Departments...</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label>Room</label>
-                <input type="text" id="room" placeholder="Room Number">
+                <label>Room / Location</label>
+                <span class="helper-text">(Specific room number, e.g., "Room 304")</span>
+                <input type="text" id="room" required>
             </div>
 
+            <h3>3. Subject / Patient Details</h3>
             <div class="form-group">
-                <label>Name of Personnel</label>
-                <input type="text" id="personnel" placeholder="Full Name" required>
+                <label>Name of Personnel / Patient (Subject)</label>
+                <span class="helper-text">(Full Name. If Patient, use Patient Name. If Staff, use Staff Name.)</span>
+                <input type="text" id="subjectName" required>
             </div>
-            
             <div class="form-group">
                 <label>Age</label>
-                <input type="number" id="age" placeholder="Age">
+                <input type="number" id="age">
             </div>
-            
             <div class="form-group">
                 <label>Sex</label>
-                <select id="sex" required>
-                    <option value="" disabled selected>Select Sex</option>
+                <select id="sex">
+                    <option value="">Select...</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Prefer not to say">Prefer not to say</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label>Attending Physician/s</label>
-                <input type="text" id="physician" placeholder="Dr. Name">
+                <label>Attending Physician</label>
+                <span class="helper-text">(Answer only if applicable)</span>
+                <input type="text" id="physician">
             </div>
 
+            <h3>4. Narrative & Assessment</h3>
             <div class="form-group">
                 <label>Type of Incident</label>
                 <select id="incidentType" required>
-                    <option value="" disabled selected>Select Incident Type</option>
-                    <option value="Patient Care/Safety Event">Patient Care/Safety Event</option>
-                    <option value="Process/Service Complaint">Process/Service Complaint</option>
+                    <option value="" disabled selected>Select Type...</option>
+                    <option value="Patient Care / Safety Event">Patient Care / Safety Event</option>
+                    <option value="Workplace Injury / Staff Safety">Workplace Injury / Staff Safety</option>
+                    <option value="Process / Service Complaint">Process / Service Complaint</option>
                     <option value="Documentation Error">Documentation Error</option>
-                    <option value="Infrastructure/Equipment Failure">Infrastructure/Equipment Failure</option>
-                    <option value="Staffing/HR issues">Staffing/HR issues</option>
+                    <option value="Infrastructure / Equipment Failure">Infrastructure / Equipment Failure</option>
+                    <option value="Staffing / HR Issue">Staffing / HR Issue</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label>Description of Incident</label>
-                <textarea id="description" placeholder="Please describe what happened in detail..." required></textarea>
+                <span class="helper-text">(Describe exactly what happened. Be objective.)</span>
+                <textarea id="description" required></textarea>
             </div>
-
             <div class="form-group">
-                <label>Severity/Impact Level</label>
+                <label>Severity / Impact Level</label>
                 <select id="severity" required>
-                    <option value="" disabled selected>Select Severity</option>
-                    <option value="Level 1 (Minor)">Level 1 (Minor): Low or no Patient/Process impact</option>
-                    <option value="Level 2 (Moderate)">Level 2 (Moderate): Reversible impact; requires immediate local correction</option>
-                    <option value="Level 3 (Major)">Level 3 (Major): Significant patient harm or systemic process failure; requires root cause analysis</option>
+                    <option value="" disabled selected>Select Level...</option>
+                    <option value="Level 1 (Minor)">Level 1 (Minor): Low / No Process Impact</option>
+                    <option value="Level 2 (Moderate)">Level 2 (Moderate): Reversible Impact; Local correction</option>
+                    <option value="Level 3 (Major)">Level 3 (Major): Significant harm or systemic failure</option>
                 </select>
             </div>
 
+            <h3>5. Actions & Evidence</h3>
             <div class="form-group">
-                <label>Immediate Actions Taken and Measurements</label>
-                <textarea id="immediateActions" placeholder="What actions were taken immediately?" required></textarea>
+                <label>Immediate Actions Taken</label>
+                <span class="helper-text">(What did you do immediately to fix it?)</span>
+                <textarea id="immediateAction" required></textarea>
             </div>
-
             <div class="form-group">
-                <label>Time Elapsed (Hours) between Incident and Immediate Action</label>
+                <label>Time Elapsed (Incident to Action)</label>
                 <select id="timeElapsed" required>
-                    <option value="" disabled selected>Select Time Elapsed</option>
-                    <option value="1-2 Hours">1-2 Hours</option>
-                    <option value="4-8 Hours">4-8 Hours</option>
-                    <option value="24 Hours">24 Hours</option>
-                    <option value="48 Hours">48 Hours</option>
-                    <option value="Other">Other</option>
+                    <option value="" disabled selected>Select Time...</option>
+                    <option value="5 Minutes">5 Minutes</option>
+                    <option value="10 Minutes">10 Minutes</option>
+                    <option value="15 Minutes">15 Minutes</option>
+                    <option value="30 Minutes">30 Minutes</option>
+                    <option value="1 Hour">1 Hour</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label>Upload Image</label>
-                <input type="file" id="imageUpload" style="background: white; padding: 12px;">
+                <span class="helper-text">(Max 5MB)</span>
+                <input type="file" id="imageUpload" accept="image/*" style="background: white;">
             </div>
 
-            <div class="form-group">
-                <label>Reported By</label>
-                <input type="text" id="reportedBy" placeholder="Your Name" required>
+            <h3>6. Routing</h3>
+            <div class="form-group routing-section">
+                <label style="color: #b33a3a;">Report To (Department Head)</label>
+                <span class="helper-text" style="color: #333;">(Select the Department Head who needs to receive this report)</span>
+                <select id="reportTo" required>
+                    <option value="" disabled selected>Select Department Head...</option>
+                </select>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">Submit Report</button>
@@ -210,8 +196,40 @@
     </div>
 
     <script>
-        // THIS IS THE URL YOU PROVIDED:
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzVAsDutofURsZyku-Fx8nCGYIJIW47wA_8-_4uwImu4Bxj0bFR5fGHkVjioiAS2Liq/exec';
+        // ==========================================
+        // PASTE YOUR NEW WEB APP URL HERE
+        // ==========================================
+        const scriptURL = 'PASTE_YOUR_NEW_WEB_APP_URL_HERE'; 
+
+        // Department List
+        const departments = [
+            "ADMITTING", "AMBULANCE", "APE/YAKAP", "BILLING", "CASHIER", "CQI", 
+            "CREDIT AND COLLECTIONS", "CSR", "CUSTOMER RELATIONS OFFICER", "DIETARY", 
+            "ER", "FINANCE", "GSD (HOUSEKEEPING & PROPERTY)", "HMO CLAIMS", "HMO OPD", 
+            "HOMES", "HOSPITAL ADMIN", "HUMAN RESOURCE", "IT", "LABORATORY", 
+            "MAINTENANCE", "MEDICAL RECORDS", "MEDICAL SOCIAL SERVICE", "NICU", "NSO", 
+            "OPD", "OR", "PHARMACY", "PHILHEALTH", "PURCHASING", "RADIOLOGY", 
+            "SECURITY", "ST3", "ST4B", "ST5A", "ST5B"
+        ];
+
+        // Populate Dropdowns on Load
+        window.onload = function() {
+            const deptSelect = document.getElementById("department");
+            const reportToSelect = document.getElementById("reportTo");
+
+            // Clear loading option
+            deptSelect.innerHTML = '<option value="" disabled selected>Select Department...</option>';
+            
+            departments.forEach(dept => {
+                let option1 = document.createElement("option");
+                option1.text = dept; option1.value = dept;
+                deptSelect.add(option1);
+
+                let option2 = document.createElement("option");
+                option2.text = dept; option2.value = dept;
+                reportToSelect.add(option2);
+            });
+        };
 
         const form = document.getElementById('incidentForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -220,47 +238,40 @@
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            
-            // Disable button and show loading text
             submitBtn.disabled = true;
             submitBtn.style.opacity = "0.5";
             loadingMsg.style.display = "block";
 
-            // 1. Collect Data
+            // Gather Data
             const dataPayload = {
+                reportedBy: document.getElementById('reportedBy').value,
                 email: document.getElementById('email').value,
                 date: document.getElementById('date').value,
                 time: document.getElementById('time').value,
                 department: document.getElementById('department').value,
                 room: document.getElementById('room').value,
-                personnel_name: document.getElementById('personnel').value,
+                subjectName: document.getElementById('subjectName').value,
                 age: document.getElementById('age').value,
                 sex: document.getElementById('sex').value,
                 physician: document.getElementById('physician').value,
-                incident_type: document.getElementById('incidentType').value,
+                incidentType: document.getElementById('incidentType').value,
                 description: document.getElementById('description').value,
                 severity: document.getElementById('severity').value,
-                immediate_actions: document.getElementById('immediateActions').value,
-                time_elapsed: document.getElementById('timeElapsed').value,
-                reported_by: document.getElementById('reportedBy').value,
-                fileData: "",
-                fileName: "",
-                fileType: ""
+                immediateAction: document.getElementById('immediateAction').value,
+                timeElapsed: document.getElementById('timeElapsed').value,
+                reportTo: document.getElementById('reportTo').value, // Critical Routing Field
+                fileData: "", fileName: "", fileType: ""
             };
 
-            // 2. Handle File Upload & Send
+            // Handle File & Send
             if (fileInput.files.length > 0) {
                 const file = fileInput.files[0];
                 const reader = new FileReader();
-                
                 reader.onload = function(e) {
-                    const rawData = e.target.result;
-                    const base64Data = rawData.split(',')[1]; // Get the Base64 part
-
+                    const base64Data = e.target.result.split(',')[1];
                     dataPayload.fileData = base64Data;
                     dataPayload.fileName = file.name;
                     dataPayload.fileType = file.type;
-
                     sendData(dataPayload);
                 };
                 reader.readAsDataURL(file);
@@ -277,24 +288,25 @@
             .then(response => response.json())
             .then(result => {
                 if (result.result === "success") {
-                    alert('Report Submitted Successfully!');
+                    alert('✅ Report Submitted Successfully!');
                     form.reset();
                 } else {
-                    alert('Error: ' + result.message);
+                    alert('❌ Error: ' + result.message);
                 }
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = "1";
-                loadingMsg.style.display = "none";
+                resetUI();
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Submission failed. Please check your internet connection.');
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = "1";
-                loadingMsg.style.display = "none";
+                alert('Submission failed. Check internet connection.');
+                resetUI();
             });
         }
-    </script>
 
+        function resetUI() {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+            loadingMsg.style.display = "none";
+        }
+    </script>
 </body>
 </html>
