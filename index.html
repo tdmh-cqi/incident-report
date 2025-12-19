@@ -228,9 +228,9 @@
 
     <script>
         // ==========================================
-        // PASTE YOUR NEW GOOGLE SCRIPT WEB APP URL HERE
+        // YOUR NEW DEPLOYMENT URL
         // ==========================================
-        const scriptURL = 'PASTE_YOUR_NEW_WEB_APP_URL_HERE'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyMb_w9KgBqzmauaOhdMGNHMTsYhB7qMg3sEeF8ipIEI7yvHrxAJ_quHpFr8yUoramA/exec';
 
         // Department List
         const departments = [
@@ -427,7 +427,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Submission failed. Check internet connection.');
+                alert('Submission failed. Check internet connection or CORS permission.');
                 resetUI();
             });
         }
