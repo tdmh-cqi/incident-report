@@ -9,7 +9,7 @@
         /* --- YOUR ORIGINAL STYLING --- */
         body {
             margin: 0; padding: 0;
-            font-family: 'Raleway', sans-serif;
+            font-family: 'Raleway', sans-serif; /* Restored Font */
             background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/tdmh-background.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; justify-content: center; align-items: flex-start;
@@ -26,35 +26,42 @@
         }
 
         .header-section { text-align: center; margin-bottom: 40px; }
-        .main-logo { width: 280px; height: auto; margin-bottom: 20px; }
+        .main-logo { width: 280px; height: auto; margin-bottom: 20px; transition: transform 0.4s ease; }
+        .logo-link:hover .main-logo { transform: scale(1.05); }
         
-        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin-bottom: 5px; }
-        h2 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 26px; font-weight: 700; margin: 0; }
-        h3 { color: #b33a3a; font-family: 'Raleway', sans-serif; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+        /* RESTORED HEADERS */
+        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin: 0 0 5px 0; line-height: 1.2; letter-spacing: 0.5px; }
+        h2 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 26px; font-weight: 700; margin: 0; opacity: 0.9; }
+        
+        /* Section Divider */
+        h3 { color: #b33a3a; font-family: 'Raleway', sans-serif; font-size: 18px; margin-top: 35px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 5px; font-weight: 700; }
 
         .form-group { margin-bottom: 22px; text-align: left; }
-        label { display: block; margin-bottom: 8px; color: #000; font-size: 16px; font-weight: 600; font-family: 'Roboto', sans-serif; }
-        .helper-text { font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-style: italic; }
+        
+        /* RESTORED LABEL FONTS */
+        label { display: block; margin-bottom: 8px; color: #000; font-size: 16px; font-weight: 500; font-family: 'Roboto', sans-serif; }
+        .helper-text { font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-style: italic; font-family: 'Raleway', sans-serif; }
 
         input, select, textarea {
             width: 100%; padding: 15px 18px; background: #f8f9fa; border: 2px solid #e0e0e0;
-            border-radius: 12px; font-family: 'Raleway', sans-serif; font-size: 15px; color: #333;
+            border-radius: 12px; font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 600; color: #333;
             box-sizing: border-box; transition: all 0.3s ease;
         }
-        input:focus, select:focus, textarea:focus { outline: none; background: #fff; border-color: #004aad; }
+        input:focus, select:focus, textarea:focus { outline: none; background: #fff; border-color: #004aad; box-shadow: 0 0 15px rgba(0, 74, 173, 0.1); }
 
         .submit-btn {
             background: linear-gradient(135deg, #004aad, #0070e0); color: white;
-            font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            font-family: 'Raleway', sans-serif; font-size: 18px; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 2px;
             padding: 20px; border: none; border-radius: 15px; cursor: pointer; width: 100%; margin-top: 30px;
-            box-shadow: 0 10px 25px rgba(0, 74, 173, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 74, 173, 0.3); transition: all 0.3s ease;
         }
-        .submit-btn:hover { transform: translateY(-3px); }
+        .submit-btn:hover { transform: translateY(-3px); background: linear-gradient(135deg, #003380, #005bb5); }
 
         #loading-message { display: none; text-align: center; margin-top: 15px; font-weight: bold; color: #004aad; }
 
         /* Highlight for Routing Section */
-        .routing-section { background-color: #fff8e1; padding: 20px; border-radius: 15px; border: 2px solid #ffc107; }
+        .routing-section { background-color: #fff8e1; padding: 25px; border-radius: 20px; border: 2px solid #ffc107; }
     </style>
 </head>
 <body>
@@ -65,8 +72,8 @@
             <a href="index.html" class="logo-link">
                 <img src="images/tdmh-logo.png" alt="TDMH Logo" class="main-logo">
             </a>
-            <h1>CQI Incident Report</h1>
-            <h2>Confidential Employee Form</h2>
+            <h1>CQI: Continuous Quality Improvement</h1>
+            <h2>Incident Report Form</h2>
         </div>
 
         <form id="incidentForm">
@@ -183,8 +190,8 @@
 
             <h3>6. Routing</h3>
             <div class="form-group routing-section">
-                <label style="color: #b33a3a;">Report To (Department Head)</label>
-                <span class="helper-text" style="color: #333;">(Select the Department Head who needs to receive this report)</span>
+                <label style="color: #b33a3a; font-weight: 700;">Report To (Department Head)</label>
+                <span class="helper-text" style="color: #444;">(Select the Department Head who needs to receive this report)</span>
                 <select id="reportTo" required>
                     <option value="" disabled selected>Select Department Head...</option>
                 </select>
@@ -259,7 +266,7 @@
                 severity: document.getElementById('severity').value,
                 immediateAction: document.getElementById('immediateAction').value,
                 timeElapsed: document.getElementById('timeElapsed').value,
-                reportTo: document.getElementById('reportTo').value, // Critical Routing Field
+                reportTo: document.getElementById('reportTo').value,
                 fileData: "", fileName: "", fileType: ""
             };
 
