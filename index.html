@@ -6,10 +6,10 @@
     <title>CQI Incident Report</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Raleway:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
     <style>
-        /* --- YOUR ORIGINAL STYLING --- */
+        /* --- GENERAL STYLING --- */
         body {
             margin: 0; padding: 0;
-            font-family: 'Raleway', sans-serif; /* Restored Font */
+            font-family: 'Raleway', sans-serif;
             background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/tdmh-background.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; justify-content: center; align-items: flex-start;
@@ -29,16 +29,14 @@
         .main-logo { width: 280px; height: auto; margin-bottom: 20px; transition: transform 0.4s ease; }
         .logo-link:hover .main-logo { transform: scale(1.05); }
         
-        /* RESTORED HEADERS */
-        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin: 0 0 5px 0; line-height: 1.2; letter-spacing: 0.5px; }
+        h1 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 32px; font-weight: 800; margin: 0 0 5px 0; line-height: 1.2; }
         h2 { font-family: 'Playfair Display', serif; color: #004aad; font-size: 26px; font-weight: 700; margin: 0; opacity: 0.9; }
         
-        /* Section Divider */
-        h3 { color: #b33a3a; font-family: 'Raleway', sans-serif; font-size: 18px; margin-top: 35px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 5px; font-weight: 700; }
+        /* Section Dividers (Blue) */
+        h3 { color: #004aad; font-family: 'Raleway', sans-serif; font-size: 18px; margin-top: 35px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 5px; font-weight: 700; }
 
         .form-group { margin-bottom: 22px; text-align: left; }
         
-        /* RESTORED LABEL FONTS */
         label { display: block; margin-bottom: 8px; color: #000; font-size: 16px; font-weight: 500; font-family: 'Roboto', sans-serif; }
         .helper-text { font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-style: italic; font-family: 'Raleway', sans-serif; }
 
@@ -48,6 +46,24 @@
             box-sizing: border-box; transition: all 0.3s ease;
         }
         input:focus, select:focus, textarea:focus { outline: none; background: #fff; border-color: #004aad; box-shadow: 0 0 15px rgba(0, 74, 173, 0.1); }
+
+        /* MULTI-SELECT CHECKBOX STYLING */
+        .checkbox-container {
+            height: 150px; overflow-y: scroll; background: #f8f9fa; border: 2px solid #e0e0e0;
+            border-radius: 12px; padding: 10px;
+        }
+        .checkbox-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #333; }
+        .checkbox-item input { width: auto; margin-right: 10px; transform: scale(1.2); }
+
+        /* SIGNATURE CANVAS STYLING */
+        canvas {
+            border: 2px solid #004aad; border-radius: 12px; background: #fff;
+            width: 100%; height: 200px; cursor: crosshair; touch-action: none; /* Prevents scrolling while signing */
+        }
+        .clear-sig-btn {
+            background: #b33a3a; color: white; padding: 8px 15px; border: none; border-radius: 8px;
+            font-size: 12px; font-weight: bold; cursor: pointer; margin-top: 5px;
+        }
 
         .submit-btn {
             background: linear-gradient(135deg, #004aad, #0070e0); color: white;
@@ -60,7 +76,7 @@
 
         #loading-message { display: none; text-align: center; margin-top: 15px; font-weight: bold; color: #004aad; }
 
-        /* Highlight for Routing Section */
+        /* Highlight for Routing Section - Text Blue */
         .routing-section { background-color: #fff8e1; padding: 25px; border-radius: 20px; border: 2px solid #ffc107; }
     </style>
 </head>
@@ -99,13 +115,14 @@
                 <label>Time of Incident</label>
                 <input type="time" id="time" required>
             </div>
+            
             <div class="form-group">
                 <label>Department / Interested Parties</label>
-                <span class="helper-text">(Where did it happen? / Who is involved?)</span>
-                <select id="department" required>
-                    <option value="" disabled selected>Loading Departments...</option>
-                </select>
+                <span class="helper-text">(Select up to 3 Departments involved)</span>
+                <div class="checkbox-container" id="deptCheckboxContainer">
+                    </div>
             </div>
+
             <div class="form-group">
                 <label>Room / Location</label>
                 <span class="helper-text">(Specific room number, e.g., "Room 304")</span>
@@ -188,9 +205,16 @@
                 <input type="file" id="imageUpload" accept="image/*" style="background: white;">
             </div>
 
+            <div class="form-group">
+                <label>Reporter's Signature</label>
+                <span class="helper-text">(Sign using your finger, stylus, or mouse)</span>
+                <canvas id="sigCanvas"></canvas>
+                <button type="button" class="clear-sig-btn" onclick="clearSignature()">Clear Signature</button>
+            </div>
+
             <h3>6. Routing</h3>
             <div class="form-group routing-section">
-                <label style="color: #b33a3a; font-weight: 700;">Report To (Department Head)</label>
+                <label style="color: #004aad; font-weight: 700;">Report To (Department Head)</label>
                 <span class="helper-text" style="color: #444;">(Select the Department Head who needs to receive this report)</span>
                 <select id="reportTo" required>
                     <option value="" disabled selected>Select Department Head...</option>
@@ -204,7 +228,7 @@
 
     <script>
         // ==========================================
-        // PASTE YOUR NEW WEB APP URL HERE
+        // PASTE YOUR NEW GOOGLE SCRIPT WEB APP URL HERE
         // ==========================================
         const scriptURL = 'PASTE_YOUR_NEW_WEB_APP_URL_HERE'; 
 
@@ -219,25 +243,105 @@
             "SECURITY", "ST3", "ST4B", "ST5A", "ST5B"
         ];
 
-        // Populate Dropdowns on Load
+        // --- 1. INITIALIZATION ---
         window.onload = function() {
-            const deptSelect = document.getElementById("department");
+            const deptContainer = document.getElementById("deptCheckboxContainer");
             const reportToSelect = document.getElementById("reportTo");
 
-            // Clear loading option
-            deptSelect.innerHTML = '<option value="" disabled selected>Select Department...</option>';
-            
+            // Populate Checkboxes for Dept (Max 3)
             departments.forEach(dept => {
-                let option1 = document.createElement("option");
-                option1.text = dept; option1.value = dept;
-                deptSelect.add(option1);
+                // Create Checkbox
+                let div = document.createElement("div");
+                div.className = "checkbox-item";
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.value = dept;
+                checkbox.name = "deptCheckbox";
+                checkbox.onclick = limitCheckboxes; // Add limit logic
+                let label = document.createElement("span");
+                label.innerText = dept;
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                deptContainer.appendChild(div);
 
-                let option2 = document.createElement("option");
-                option2.text = dept; option2.value = dept;
-                reportToSelect.add(option2);
+                // Populate Routing Dropdown
+                let option = document.createElement("option");
+                option.text = dept; option.value = dept;
+                reportToSelect.add(option);
             });
+
+            // Initialize Canvas
+            resizeCanvas();
         };
 
+        // --- 2. CHECKBOX LIMIT LOGIC (Max 3) ---
+        function limitCheckboxes() {
+            const checkboxes = document.querySelectorAll('input[name="deptCheckbox"]:checked');
+            if (checkboxes.length > 3) {
+                this.checked = false;
+                alert("You can only select a maximum of 3 departments.");
+            }
+        }
+
+        // --- 3. SIGNATURE PAD LOGIC ---
+        const canvas = document.getElementById("sigCanvas");
+        const ctx = canvas.getContext("2d");
+        let writingMode = false;
+
+        // Resize canvas correctly
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = 200;
+            ctx.lineWidth = 2;
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#000000';
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // Mouse Events
+        canvas.addEventListener('mousedown', (e) => { writingMode = true; ctx.beginPath(); getPos(e); });
+        canvas.addEventListener('mouseup', () => { writingMode = false; });
+        canvas.addEventListener('mousemove', draw);
+
+        // Touch Events (Mobile)
+        canvas.addEventListener('touchstart', (e) => { 
+            writingMode = true; ctx.beginPath(); getPos(e); 
+            e.preventDefault(); // Stop scrolling
+        }, {passive: false});
+        canvas.addEventListener('touchend', () => { writingMode = false; });
+        canvas.addEventListener('touchmove', (e) => {
+            draw(e);
+            e.preventDefault(); // Stop scrolling
+        }, {passive: false});
+
+        function getPos(event) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = event.clientX || event.touches[0].clientX;
+            const clientY = event.clientY || event.touches[0].clientY;
+            ctx.moveTo(clientX - rect.left, clientY - rect.top);
+        }
+
+        function draw(event) {
+            if (!writingMode) return;
+            const rect = canvas.getBoundingClientRect();
+            const clientX = event.clientX || event.touches[0].clientX;
+            const clientY = event.clientY || event.touches[0].clientY;
+            ctx.lineTo(clientX - rect.left, clientY - rect.top);
+            ctx.stroke();
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function isCanvasBlank(canvas) {
+            const blank = document.createElement('canvas');
+            blank.width = canvas.width;
+            blank.height = canvas.height;
+            return canvas.toDataURL() === blank.toDataURL();
+        }
+
+        // --- 4. SUBMISSION LOGIC ---
         const form = document.getElementById('incidentForm');
         const submitBtn = document.getElementById('submitBtn');
         const loadingMsg = document.getElementById('loading-message');
@@ -245,6 +349,20 @@
 
         form.addEventListener('submit', e => {
             e.preventDefault();
+
+            // Validation: Check Departments
+            const selectedDepts = Array.from(document.querySelectorAll('input[name="deptCheckbox"]:checked')).map(cb => cb.value);
+            if (selectedDepts.length === 0) {
+                alert("Please select at least one Department/Interested Party.");
+                return;
+            }
+
+            // Validation: Check Signature
+            if (isCanvasBlank(canvas)) {
+                alert("Please sign the form before submitting.");
+                return;
+            }
+
             submitBtn.disabled = true;
             submitBtn.style.opacity = "0.5";
             loadingMsg.style.display = "block";
@@ -255,7 +373,7 @@
                 email: document.getElementById('email').value,
                 date: document.getElementById('date').value,
                 time: document.getElementById('time').value,
-                department: document.getElementById('department').value,
+                department: selectedDepts.join(", "), // Join multiple depts with comma
                 room: document.getElementById('room').value,
                 subjectName: document.getElementById('subjectName').value,
                 age: document.getElementById('age').value,
@@ -267,6 +385,7 @@
                 immediateAction: document.getElementById('immediateAction').value,
                 timeElapsed: document.getElementById('timeElapsed').value,
                 reportTo: document.getElementById('reportTo').value,
+                signatureData: canvas.toDataURL(), // Send Signature Base64
                 fileData: "", fileName: "", fileType: ""
             };
 
@@ -295,8 +414,12 @@
             .then(response => response.json())
             .then(result => {
                 if (result.result === "success") {
-                    alert('✅ Report Submitted Successfully!');
+                    // Custom Confidential Message
+                    alert("Thank you for submitting your IR. Rest assured that this information is strictly confidential and will only be viewable by the specific department you chose.");
                     form.reset();
+                    clearSignature();
+                    // Reset Checkboxes
+                    document.querySelectorAll('input[name="deptCheckbox"]').forEach(cb => cb.checked = false);
                 } else {
                     alert('❌ Error: ' + result.message);
                 }
