@@ -79,6 +79,12 @@
 
         /* Highlight for Routing Section */
         .routing-section { background-color: #fff8e1; padding: 25px; border-radius: 20px; border: 2px solid #ffc107; }
+        
+        .important-note {
+            background-color: #ffe6e6; color: #b33a3a; padding: 15px; border-radius: 10px;
+            font-size: 13px; font-weight: 700; border-left: 5px solid #b33a3a; margin-bottom: 15px;
+            line-height: 1.5;
+        }
 
         /* --- NEW SUCCESS MODAL STYLING --- */
         .modal-overlay {
@@ -153,7 +159,8 @@
             
             <div class="form-group">
                 <label>Department / Interested Parties</label>
-                <span class="helper-text">(Select up to 3 Departments involved)</span>
+                <span class="helper-text">(Select ALL departments involved)</span>
+                <!-- Updated: Unlimited selections allowed -->
                 <div class="checkbox-container" id="deptCheckboxContainer">
                     </div>
             </div>
@@ -250,10 +257,18 @@
             <h3>6. Routing</h3>
             <div class="form-group routing-section">
                 <label style="color: #004aad; font-weight: 700;">Report To (Department Head)</label>
-                <span class="helper-text" style="color: #444;">(Select the Department Head who needs to receive this report)</span>
-                <select id="reportTo" required>
-                    <option value="" disabled selected>Select Department Head...</option>
-                </select>
+                <span class="helper-text" style="color: #444;">(Select ALL Departments that need to receive this report)</span>
+                
+                <!-- NEW NOTE ADDED HERE -->
+                <div class="important-note">
+                    PLEASE NOTE: Direct your incident report to the department(s) involved in the incident. <br>
+                    Only include Human Resources (HR) if an administrative hearing is being considered or if the nature of the incident strictly pertains to HR matters.
+                </div>
+
+                <!-- CHANGED FROM SELECT TO CHECKBOX CONTAINER -->
+                <div class="checkbox-container" id="routingCheckboxContainer" style="background: white;">
+                    <!-- Populated by JS -->
+                </div>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">Submit Report</button>
@@ -267,7 +282,7 @@
                 <svg class="jumping-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
             </div>
             <h2 class="modal-title">Report Submitted Successfully!</h2>
-            <p class="modal-text">Thank you for submitting your IR. Rest assured that this information is strictly confidential and will only be viewable by the specific department you chose.</p>
+            <p class="modal-text">Thank you for submitting your IR. Rest assured that this information is strictly confidential and will only be viewable by the specific department(s) you chose.</p>
             <button class="modal-btn-again" onclick="window.location.reload()">Submit Another Report</button>
         </div>
     </div>
@@ -282,26 +297,25 @@
 
         window.onload = function() {
             const deptContainer = document.getElementById("deptCheckboxContainer");
-            const reportToSelect = document.getElementById("reportTo");
+            const routingContainer = document.getElementById("routingCheckboxContainer");
 
-            // Populate Checkboxes for Dept (Max 3)
             departments.forEach(dept => {
+                // 1. Populate "Interested Parties" (Unlimited selection)
                 let div = document.createElement("div"); div.className = "checkbox-item";
-                let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.value = dept; checkbox.name = "deptCheckbox"; checkbox.onclick = limitCheckboxes;
+                let checkbox = document.createElement("input"); checkbox.type = "checkbox"; checkbox.value = dept; checkbox.name = "deptCheckbox";
                 let label = document.createElement("span"); label.innerText = dept;
                 div.appendChild(checkbox); div.appendChild(label); deptContainer.appendChild(div);
                 
-                let option = document.createElement("option"); option.text = dept; option.value = dept; reportToSelect.add(option);
+                // 2. Populate "Routing" (Unlimited selection) - NEW LOGIC
+                let routeDiv = document.createElement("div"); routeDiv.className = "checkbox-item";
+                let routeCheckbox = document.createElement("input"); routeCheckbox.type = "checkbox"; routeCheckbox.value = dept; routeCheckbox.name = "routingCheckbox";
+                let routeLabel = document.createElement("span"); routeLabel.innerText = dept;
+                routeDiv.appendChild(routeCheckbox); routeDiv.appendChild(routeLabel); routingContainer.appendChild(routeDiv);
             });
             resizeCanvas();
         };
 
-        function limitCheckboxes() {
-            if (document.querySelectorAll('input[name="deptCheckbox"]:checked').length > 3) {
-                this.checked = false;
-                alert("You can only select a maximum of 3 departments.");
-            }
-        }
+        // NOTE: removed the limitCheckboxes function as you requested unlimited selections.
 
         const canvas = document.getElementById("sigCanvas");
         const ctx = canvas.getContext("2d");
@@ -345,15 +359,40 @@
 
         form.addEventListener('submit', e => {
             e.preventDefault();
+            
+            // Get Interested Parties (Unlimited)
             const selectedDepts = Array.from(document.querySelectorAll('input[name="deptCheckbox"]:checked')).map(cb => cb.value);
+            
+            // Get Routing Destinations (Unlimited) - NEW
+            const selectedRouting = Array.from(document.querySelectorAll('input[name="routingCheckbox"]:checked')).map(cb => cb.value);
+
+            // Validations
             if (selectedDepts.length === 0) { alert("Please select at least one Department/Interested Party."); return; }
+            if (selectedRouting.length === 0) { alert("Please select at least one Department to route this report to."); return; }
             if (isCanvasBlank(canvas)) { alert("Please sign the form before submitting."); return; }
             
             submitBtn.disabled = true; submitBtn.style.opacity = "0.5"; loadingMsg.style.display = "block";
 
             const dataPayload = {
-                reportedBy: document.getElementById('reportedBy').value, email: document.getElementById('email').value, date: document.getElementById('date').value, time: document.getElementById('time').value,
-                department: selectedDepts.join(", "), room: document.getElementById('room').value, subjectName: document.getElementById('subjectName').value, age: document.getElementById('age').value, sex: document.getElementById('sex').value, physician: document.getElementById('physician').value, incidentType: document.getElementById('incidentType').value, description: document.getElementById('description').value, severity: document.getElementById('severity').value, immediateAction: document.getElementById('immediateAction').value, timeElapsed: document.getElementById('timeElapsed').value, reportTo: document.getElementById('reportTo').value, signatureData: canvas.toDataURL(), fileData: "", fileName: "", fileType: ""
+                reportedBy: document.getElementById('reportedBy').value, 
+                email: document.getElementById('email').value, 
+                date: document.getElementById('date').value, 
+                time: document.getElementById('time').value,
+                department: selectedDepts.join(", "), 
+                room: document.getElementById('room').value, 
+                subjectName: document.getElementById('subjectName').value, 
+                age: document.getElementById('age').value, 
+                sex: document.getElementById('sex').value, 
+                physician: document.getElementById('physician').value, 
+                incidentType: document.getElementById('incidentType').value, 
+                description: document.getElementById('description').value, 
+                severity: document.getElementById('severity').value, 
+                immediateAction: document.getElementById('immediateAction').value, 
+                timeElapsed: document.getElementById('timeElapsed').value, 
+                // Send Routing as a comma-separated string to match backend logic
+                reportTo: selectedRouting.join(", "), 
+                signatureData: canvas.toDataURL(), 
+                fileData: "", fileName: "", fileType: ""
             };
 
             if (fileInput.files.length > 0) {
@@ -370,7 +409,8 @@
                 if (result.result === "success") {
                     // SHOW CUSTOM MODAL
                     successModal.style.display = 'flex';
-                    form.reset(); clearSignature(); document.querySelectorAll('input[name="deptCheckbox"]').forEach(cb => cb.checked = false);
+                    form.reset(); clearSignature(); 
+                    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
                 } else { alert('❌ Error: ' + result.message); }
                 resetUI();
             })
